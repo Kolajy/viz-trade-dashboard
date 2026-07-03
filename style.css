@@ -1,0 +1,9 @@
+/* ============================================================
+   MacroScope — Unified Terminal Design System
+   Bloomberg / FactSet inspired, typography-first, modular assets.
+   ============================================================ */
+
+@import url('./css/base.css');
+@import url('./css/dashboard.css');
+@import url('./css/state-trade.css');
+@import url('./css/global-trade.css');

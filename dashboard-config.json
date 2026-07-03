@@ -1,0 +1,167 @@
+{
+  "macroDashboard": {
+    "dataUrl": "./data.json",
+    "metrics": [
+      {
+        "id": "block-gdp",
+        "name": "Real GDP Growth",
+        "periodKey": "macro.gdp_period",
+        "valueKey": "macro.gdp",
+        "unit": "%",
+        "tagKey": "macro.gdp_tag",
+        "barKey": "macro.gdp_bar",
+        "isSigned": false,
+        "note": "Final estimate up from 1.6% second estimate; consumer spending +0.5%",
+        "type": "standard"
+      },
+      {
+        "id": "block-unemployment",
+        "name": "Unemployment Rate",
+        "periodKey": "macro.unemployment_period",
+        "valueKey": "macro.unemployment",
+        "unit": "%",
+        "tagKey": "macro.unemployment_tag",
+        "barKey": "macro.unemployment_bar",
+        "isSigned": false,
+        "note": "June employment report due July 2. Up from 4.1% year-ago.",
+        "type": "standard"
+      },
+      {
+        "id": "block-payrolls",
+        "name": "Non-Farm Payrolls",
+        "periodKey": "macro.payrolls_period",
+        "valueKey": "macro.payrolls",
+        "unit": "K",
+        "tagKey": "macro.payrolls_tag",
+        "barKey": "macro.payrolls_bar",
+        "isSigned": true,
+        "note": "Job gains led by leisure and healthcare; offset by decline in financial activities",
+        "type": "standard"
+      },
+      {
+        "id": "block-wage-growth",
+        "name": "Wage Growth (AHE YoY)",
+        "periodKey": "macro.wage_growth_period",
+        "valueKey": "macro.wage_growth",
+        "unit": "%",
+        "tagKey": "macro.wage_growth_tag",
+        "barKey": "macro.wage_growth_bar",
+        "isSigned": false,
+        "note": "Average Hourly Earnings YoY; moderated slightly from 3.6% in April",
+        "type": "standard"
+      },
+      {
+        "id": "block-retail",
+        "name": "Retail Sales (MoM)",
+        "periodKey": "macro.retail_sales_period",
+        "valueKey": "macro.retail_sales",
+        "unit": "%",
+        "tagKey": "macro.retail_sales_tag",
+        "barKey": "macro.retail_sales_bar",
+        "isSigned": true,
+        "note": "Consumer spending resilient despite weak sentiment readings",
+        "type": "standard"
+      },
+      {
+        "id": "block-housing",
+        "name": "Housing Starts (SAAR)",
+        "periodKey": "macro.housing_starts_period",
+        "valueKey": "macro.housing_starts",
+        "unit": "M",
+        "tagKey": "macro.housing_starts_tag",
+        "barKey": "macro.housing_starts_bar",
+        "isSigned": false,
+        "note": "Sharpest monthly decline since 2023; elevated financing costs a drag",
+        "type": "standard"
+      },
+      {
+        "id": "block-sentiment",
+        "name": "Consumer Sentiment",
+        "periodKey": "macro.sentiment_period",
+        "valueKey": "macro.sentiment",
+        "unit": "",
+        "tagKey": "macro.sentiment_tag",
+        "barKey": "macro.sentiment_bar",
+        "isSigned": false,
+        "note": "Up from 44.8 in May; remains deeply depressed vs. 100-pt baseline",
+        "type": "standard"
+      },
+      {
+        "id": "block-ism",
+        "name": "ISM Manufacturing PMI",
+        "periodKey": "macro.ism_pmi_period",
+        "valueKey": "macro.ism_pmi",
+        "tagKey": "macro.ism_pmi_tag",
+        "barKey": "macro.pmi_pos",
+        "note": "Bounced back from months below 50; new orders and production lead",
+        "type": "pmi"
+      },
+      {
+        "id": "block-services-ism",
+        "name": "ISM Services PMI",
+        "periodKey": "macro.services_pmi_period",
+        "valueKey": "macro.services_pmi",
+        "tagKey": "macro.services_pmi_tag",
+        "barKey": "macro.services_pmi_pos",
+        "note": "23rd consecutive month of sector expansion; prices index at multi-year highs",
+        "type": "pmi"
+      },
+      {
+        "id": "block-cpi",
+        "name": "CPI (YoY)",
+        "periodKey": "inflation.cpi_period",
+        "valueKey": "inflation.cpi",
+        "barKey": "inflation.cpi_bar",
+        "type": "inflation"
+      },
+      {
+        "id": "block-pce",
+        "name": "PCE Inflation (YoY)",
+        "periodKey": "inflation.pce_period",
+        "valueKey": "inflation.pce",
+        "barKey": "inflation.pce_bar",
+        "type": "inflation"
+      },
+      {
+        "id": "block-core-pce",
+        "name": "Core PCE Inflation (YoY)",
+        "periodKey": "inflation.core_pce_period",
+        "valueKey": "inflation.core_pce",
+        "barKey": "inflation.core_pce_bar",
+        "type": "inflation"
+      }
+    ]
+  },
+  "stateTradeDashboard": {
+    "dataUrl": "./tradeData.json",
+    "mapUrl": "./usa-map-dimensions.json",
+    "modes": {
+      "exports": {
+        "label": "Exports",
+        "title": "State Export Value Scale"
+      },
+      "imports": {
+        "label": "Imports",
+        "title": "State Import Value Scale"
+      }
+    }
+  },
+  "globalTradeDashboard": {
+    "dataUrl": "./globalTradeData.json",
+    "mapUrl": "./world-map.svg",
+    "modes": {
+      "exports": {
+        "label": "Exports",
+        "title": "U.S. Export Value Scale"
+      },
+      "imports": {
+        "label": "Imports",
+        "title": "U.S. Import Value Scale"
+      },
+      "balance": {
+        "label": "Trade Balance",
+        "title": "Net Trade Balance (Surplus/Deficit)"
+      }
+    }
+  }
+}

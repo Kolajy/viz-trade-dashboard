@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>US Economic Dashboard — June 2026</title>
+  <meta name="description" content="Key US macroeconomic indicators as of June 2026 — GDP, CPI, PCE, unemployment, Fed funds rate, S&P 500, Treasury yields, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="header-left">
+        <span class="header-title">US Macro Dashboard</span>
+        <span class="header-divider" aria-hidden="true"></span>
+        <time class="header-subtitle" datetime="2026-06-27">As of June 27, 2026</time>
+      </div>
+      <div class="header-right">
+        <span class="header-sources">Sources: BEA · BLS · Federal Reserve · ISM · U. of Michigan · Census Bureau</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="site-tabs" role="tablist">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-macro" id="tab-btn-macro">Macro Indicators</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-trade" id="tab-btn-trade">State Trade Map</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-global-trade" id="tab-btn-global-trade">Global Trade Map</button>
+  </nav>
+
+  <main class="dashboard" role="main">
+    <div id="tab-macro" class="tab-pane active" role="tabpanel" aria-labelledby="tab-btn-macro">
+      <!-- Top KPI strip (Incorporated ERP) -->
+      <section class="kpi-strip" aria-label="Top indicators">
+      <div class="kpi-item" id="kpi-sp500">
+        <div class="kpi-label">S&amp;P 500</div>
+        <div class="kpi-value">7,354<span class="kpi-decimal">.02</span></div>
+        <div class="kpi-meta up">Jun 26 close</div>
+      </div>
+      <div class="kpi-divider" aria-hidden="true"></div>
+      <div class="kpi-item" id="kpi-vix">
+        <div class="kpi-label">VIX Index</div>
+        <div class="kpi-value">18.41</div>
+        <div class="kpi-meta neutral">Fear Gauge</div>
+      </div>
+      <div class="kpi-divider" aria-hidden="true"></div>
+      <div class="kpi-item" id="kpi-treasury">
+        <div class="kpi-label">10Y Treasury</div>
+        <div class="kpi-value">4.38<span class="kpi-decimal">%</span></div>
+        <div class="kpi-meta neutral">Jun 26</div>
+      </div>
+      <div class="kpi-divider" aria-hidden="true"></div>
+      <div class="kpi-item" id="kpi-erp">
+        <div class="kpi-label">Equity Risk Prem.</div>
+        <div class="kpi-value">+0.16<span class="kpi-decimal">%</span></div>
+        <div class="kpi-meta down">Historically Thin</div>
+      </div>
+      <div class="kpi-divider" aria-hidden="true"></div>
+      <div class="kpi-item" id="kpi-spread">
+        <div class="kpi-label">2Y/10Y Spread</div>
+        <div class="kpi-value">+0.31<span class="kpi-decimal">%</span></div>
+        <div class="kpi-meta up">Uninverted</div>
+      </div>
+      <div class="kpi-divider" aria-hidden="true"></div>
+      <div class="kpi-item" id="kpi-gold">
+        <div class="kpi-label">Gold (XAU)</div>
+        <div class="kpi-value">$4,089</div>
+        <div class="kpi-meta up">Safe-haven</div>
+      </div>
+      <div class="kpi-divider" aria-hidden="true"></div>
+      <div class="kpi-item" id="kpi-oil">
+        <div class="kpi-label">WTI Crude</div>
+        <div class="kpi-value">$69.23</div>
+        <div class="kpi-meta down">Ceasefire</div>
+      </div>
+    </section>
+
+    <!-- Main grid -->
+    <div class="main-grid">
+
+      <!-- Left column: Growth & Labor -->
+      <div class="col">
+        <h2 class="col-heading" id="heading-growth">Growth &amp; Labor</h2>
+
+        <div class="metric-block" id="block-gdp" tabindex="0" aria-labelledby="heading-growth">
+          <div class="metric-row">
+            <div class="metric-name">
+              Real GDP Growth
+              <span class="metric-period">Q1 2026 · Final · BEA</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">2.1<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--neutral">Annual rate</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--neutral" style="--w: 42%"></div>
+          </div>
+          <p class="metric-note">Final estimate up from 1.6% second estimate; consumer spending +0.5%</p>
+        </div>
+
+        <div class="metric-block" id="block-unemployment" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Unemployment Rate
+              <span class="metric-period">May 2026 · BLS</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">4.3<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--caution">Rising</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--caution" style="--w: 57%"></div>
+          </div>
+          <p class="metric-note">June employment report due July 2. Up from 4.1% year-ago.</p>
+        </div>
+
+        <div class="metric-block" id="block-payrolls" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Non-Farm Payrolls
+              <span class="metric-period">May 2026 · BLS · Jobs added</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number up">+172<span class="metric-unit">K</span></div>
+              <div class="metric-tag tag--neutral">Moderate</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--neutral" style="--w: 55%"></div>
+          </div>
+          <p class="metric-note">Job gains led by leisure and healthcare; offset by decline in financial activities</p>
+        </div>
+
+        <!-- NEW: Wage Growth (Average Hourly Earnings) -->
+        <div class="metric-block" id="block-wage-growth" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Wage Growth (AHE YoY)
+              <span class="metric-period">May 2026 · BLS</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">3.4<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--caution">Moderating</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--caution" style="--w: 68%"></div>
+          </div>
+          <p class="metric-note">Average Hourly Earnings YoY; moderated slightly from 3.6% in April</p>
+        </div>
+
+        <div class="metric-block" id="block-retail" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Retail Sales (MoM)
+              <span class="metric-period">May 2026 · Census Bureau</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number up">+0.9<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--up">Growth</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--up" style="--w: 60%"></div>
+          </div>
+          <p class="metric-note">Consumer spending resilient despite weak sentiment readings</p>
+        </div>
+
+        <div class="metric-block" id="block-housing" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Housing Starts (SAAR)
+              <span class="metric-period">May 2026 · Census Bureau</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number down">1.18<span class="metric-unit">M</span></div>
+              <div class="metric-tag tag--down">−15.4% MoM</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--down" style="--w: 35%"></div>
+          </div>
+          <p class="metric-note">Sharpest monthly decline since 2023; elevated financing costs a drag</p>
+        </div>
+
+        <div class="metric-block" id="block-sentiment" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Consumer Sentiment
+              <span class="metric-period">Jun 2026 Final · U. of Michigan</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number down">49.5</div>
+              <div class="metric-tag tag--down">Historically low</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--down" style="--w: 25%"></div>
+          </div>
+          <p class="metric-note">Up from 44.8 in May; remains deeply depressed vs. 100-pt baseline</p>
+        </div>
+
+      </div>
+
+      <!-- Right column: Inflation & Policy -->
+      <div class="col">
+        <h2 class="col-heading" id="heading-inflation">Inflation &amp; Monetary Policy</h2>
+
+        <div class="target-callout" role="note" id="fed-target-note">
+          <div class="target-callout-label">Fed Inflation Target</div>
+          <div class="target-callout-value">2.0%</div>
+          <div class="target-callout-sub">All three inflation gauges running well above target</div>
+        </div>
+
+        <div class="metric-block" id="block-cpi" tabindex="0" aria-labelledby="heading-inflation">
+          <div class="metric-row">
+            <div class="metric-name">
+              CPI (YoY)
+              <span class="metric-period">May 2026 · BLS · Jun 10 release</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number down">4.2<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--down">+0.5% MoM</div>
+            </div>
+          </div>
+          <div class="inflation-bar-wrap" aria-hidden="true">
+            <div class="inflation-track">
+              <div class="inflation-fill" style="--fill: 84%"></div>
+              <div class="inflation-target" style="--target: 40%" aria-label="2% target"></div>
+            </div>
+            <div class="inflation-scale">
+              <span>0%</span><span class="target-label">2% target</span><span>5%</span>
+            </div>
+          </div>
+          <p class="metric-note">Energy prices up 23.5% YoY, primary driver of headline acceleration</p>
+        </div>
+
+        <div class="metric-block" id="block-pce" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              PCE Inflation (YoY)
+              <span class="metric-period">May 2026 · BEA · Jun 25 release</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number down">4.1<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--down">+0.4% MoM</div>
+            </div>
+          </div>
+          <div class="inflation-bar-wrap" aria-hidden="true">
+            <div class="inflation-track">
+              <div class="inflation-fill" style="--fill: 82%"></div>
+              <div class="inflation-target" style="--target: 40%"></div>
+            </div>
+            <div class="inflation-scale">
+              <span>0%</span><span class="target-label">2% target</span><span>5%</span>
+            </div>
+          </div>
+          <p class="metric-note">Personal Consumption Expenditures index; preferred Fed gauge</p>
+        </div>
+
+        <div class="metric-block" id="block-core-pce" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Core PCE (YoY)
+              <span class="metric-period">May 2026 · BEA · ex-Food &amp; Energy</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number down">3.4<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--down">+0.3% MoM</div>
+            </div>
+          </div>
+          <div class="inflation-bar-wrap" aria-hidden="true">
+            <div class="inflation-track">
+              <div class="inflation-fill" style="--fill: 68%"></div>
+              <div class="inflation-target" style="--target: 40%"></div>
+            </div>
+            <div class="inflation-scale">
+              <span>0%</span><span class="target-label">2% target</span><span>5%</span>
+            </div>
+          </div>
+          <p class="metric-note">Persistent underlying inflation; next PCE release July 30</p>
+        </div>
+
+        <div class="metric-block" id="block-ism" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              ISM Manufacturing PMI
+              <span class="metric-period">May 2026 · ISM</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number up">54.0</div>
+              <div class="metric-tag tag--up">Expansion</div>
+            </div>
+          </div>
+          <div class="pmi-track" aria-hidden="true">
+            <div class="pmi-zone-label left">Contraction</div>
+            <div class="pmi-zones">
+              <div class="pmi-zone-contract"></div>
+              <div class="pmi-zone-expand"></div>
+              <div class="pmi-threshold" aria-label="Threshold 50"></div>
+              <div class="pmi-marker" style="--pmi-pos: 80%"></div>
+            </div>
+            <div class="pmi-zone-label right">Expansion</div>
+          </div>
+          <p class="metric-note">Bounced back from months below 50; new orders and production lead</p>
+        </div>
+
+        <div class="metric-block" id="block-services-ism" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              ISM Services PMI
+              <span class="metric-period">May 2026 · ISM</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number up">54.5</div>
+              <div class="metric-tag tag--up">Expansion</div>
+            </div>
+          </div>
+          <div class="pmi-track" aria-hidden="true">
+            <div class="pmi-zone-label left">Contraction</div>
+            <div class="pmi-zones">
+              <div class="pmi-zone-contract"></div>
+              <div class="pmi-zone-expand"></div>
+              <div class="pmi-threshold"></div>
+              <div class="pmi-marker" style="--pmi-pos: 84%"></div>
+            </div>
+            <div class="pmi-zone-label right">Expansion</div>
+          </div>
+          <p class="metric-note">23rd consecutive month of sector expansion; prices index at multi-year highs</p>
+        </div>
+
+        <!-- Updated Fed Policy Block to include Balance Sheet -->
+        <div class="policy-block" id="block-fed" tabindex="0">
+          <div class="policy-header">
+            <div class="policy-title">Federal Reserve Policy</div>
+            <div class="policy-date">FOMC · Jun 16–17, 2026</div>
+          </div>
+          <div class="policy-body">
+            <div class="policy-rate-row">
+              <div class="policy-rate-label">Target Range</div>
+              <div class="policy-rate-value">3.50 – 3.75%</div>
+            </div>
+            <div class="policy-rate-row">
+              <div class="policy-rate-label">Decision</div>
+              <div class="policy-rate-value neutral-text">Unchanged · 12–0 vote</div>
+            </div>
+            <div class="policy-rate-row">
+              <div class="policy-rate-label">Balance Sheet</div>
+              <div class="policy-rate-value" id="fed-balance-sheet">$6.74T</div>
+            </div>
+            <div class="policy-rate-row">
+              <div class="policy-rate-label">QT Trend</div>
+              <div class="policy-rate-value down-text" style="color: var(--color-down);">Contracting</div>
+            </div>
+          </div>
+          <p class="metric-note">Dot plot signals potential hikes in 2026 if inflation remains elevated</p>
+        </div>
+
+      </div>
+
+    </div>
+    </div> <!-- Close tab-macro -->
+
+    <div id="tab-trade" class="tab-pane" role="tabpanel" aria-labelledby="tab-btn-trade" style="display: none;">
+      <div class="trade-map-layout">
+        <!-- Left Side: Controls & Map -->
+        <div class="map-section">
+          <div class="map-controls">
+            <div class="control-group">
+              <label class="control-label">Visualization Mode</label>
+              <div class="toggle-buttons" id="mode-toggle-group">
+                <button id="btn-mode-exports" class="toggle-btn active" aria-pressed="true">Exports</button>
+                <button id="btn-mode-imports" class="toggle-btn" aria-pressed="false">Imports</button>
+              </div>
+            </div>
+            <div class="map-legend">
+              <div class="legend-title" id="legend-title-text">State Export Value Scale</div>
+              <div class="legend-gradient" id="legend-gradient-bar"></div>
+              <div class="legend-labels">
+                <span id="legend-min">$0B</span>
+                <span id="legend-mid">$100B</span>
+                <span id="legend-max">$450B</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="svg-map-wrapper">
+            <svg id="us-svg-map" viewBox="0 0 959 593" xmlns="http://www.w3.org/2000/svg">
+              <!-- SVG state paths will be injected dynamically -->
+            </svg>
+          </div>
+        </div>
+
+        <!-- Right Side: Details Pane -->
+        <div class="trade-details-section">
+          <div class="details-card card--empty" id="details-card-empty">
+            <div class="empty-state-icon" aria-hidden="true">🗺️</div>
+            <h3>Select a State</h3>
+            <p>Hover over or click a state on the map to view its detailed international import and export statistics.</p>
+          </div>
+          
+          <div class="details-card" id="details-card-content" style="display: none;">
+            <header class="details-header">
+              <h2 class="state-title" id="detail-state-name">State</h2>
+              <span class="state-abbr" id="detail-state-abbr">XX</span>
+            </header>
+            
+            <div class="details-body">
+              <div class="trade-metric-row">
+                <div class="trade-metric">
+                  <span class="trade-label">Total Exports</span>
+                  <div class="trade-value value--exports" id="detail-exports-val">$0.0B</div>
+                </div>
+                <div class="trade-metric">
+                  <span class="trade-label">Total Imports</span>
+                  <div class="trade-value value--imports" id="detail-imports-val">$0.0B</div>
+                </div>
+              </div>
+
+              <div class="comparison-bar-wrap">
+                <div class="comparison-bar" id="detail-ratio-bar">
+                  <div class="ratio-segment ratio--exports" id="detail-ratio-exports" style="width: 50%"></div>
+                  <div class="ratio-segment ratio--imports" id="detail-ratio-imports" style="width: 50%"></div>
+                </div>
+                <div class="comparison-labels">
+                  <span id="detail-ratio-exports-lbl">Exports (50%)</span>
+                  <span id="detail-ratio-imports-lbl">Imports (50%)</span>
+                </div>
+              </div>
+              
+              <div class="detail-info-block">
+                <div class="info-label">Top Export Commodity</div>
+                <div class="info-value" id="detail-exports-top">Commodity</div>
+              </div>
+
+              <div class="detail-info-block">
+                <div class="info-label">Top Import Commodity</div>
+                <div class="info-value" id="detail-imports-top">Commodity</div>
+              </div>
+
+              <div class="detail-info-block">
+                <div class="info-label">Top Trading Partner</div>
+                <div class="info-value partner-tag" id="detail-partner">Partner</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick stats table / Top States ranking -->
+          <div class="rankings-box">
+            <h3 class="rankings-heading" id="rankings-title">Top 5 States by Exports</h3>
+            <div class="toggle-buttons mini" id="rank-toggle-group">
+              <button id="rank-btn-exports" class="toggle-btn mini-btn active" aria-pressed="true">Exports</button>
+              <button id="rank-btn-imports" class="toggle-btn mini-btn" aria-pressed="false">Imports</button>
+            </div>
+            <ol class="rankings-list" id="rankings-list-el">
+              <!-- Will be populated dynamically -->
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- National Summary KPI strip -->
+      <section class="national-summary" aria-label="National trade summary">
+        <div class="summary-card" id="sum-exports">
+          <div class="summary-label">Aggregated State Exports</div>
+          <div class="summary-value value--exports" id="nat-exports-val">$0.00T</div>
+          <div class="summary-meta">50 States Combined</div>
+        </div>
+        <div class="summary-card" id="sum-imports">
+          <div class="summary-label">Aggregated State Imports</div>
+          <div class="summary-value value--imports" id="nat-imports-val">$0.00T</div>
+          <div class="summary-meta">50 States Combined</div>
+        </div>
+        <div class="summary-card" id="sum-balance">
+          <div class="summary-label">State Trade Balance</div>
+          <div class="summary-value" id="nat-balance-val">-$0.00T</div>
+          <div class="summary-meta" id="nat-balance-status">Net Trade Deficit</div>
+        </div>
+      </section>
+
+      <!-- Ledger Section -->
+      <section class="ledger-section">
+        <header class="ledger-header">
+          <div class="ledger-title-group">
+            <h2 class="ledger-title">U.S. States Trade Ledger</h2>
+            <p class="ledger-subtitle">Sortable directory of international imports, exports, and trade balances across all 50 states.</p>
+          </div>
+          <div class="ledger-actions">
+            <input type="search" id="table-search" placeholder="Search by state, commodity, partner..." aria-label="Search trade table">
+          </div>
+        </header>
+        
+        <div class="ledger-table-wrap">
+          <table class="ledger-table" id="states-ledger-table">
+            <thead>
+              <tr>
+                <th class="sortable sorted-asc" data-sort="state" tabindex="0" role="button">State <span class="sort-indicator">▲</span></th>
+                <th class="sortable numeric" data-sort="exports" tabindex="0" role="button">Exports <span class="sort-indicator"></span></th>
+                <th class="sortable numeric" data-sort="imports" tabindex="0" role="button">Imports <span class="sort-indicator"></span></th>
+                <th class="sortable numeric" data-sort="balance" tabindex="0" role="button">Net Balance <span class="sort-indicator"></span></th>
+                <th>Top Export Commodity</th>
+                <th>Top Import Commodity</th>
+                <th>Top Partner</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-table-body">
+              <!-- Will be populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-global-trade" class="tab-pane" role="tabpanel" aria-labelledby="tab-btn-global-trade" style="display: none;">
+      <div class="trade-map-layout global-trade-layout">
+        <!-- Left Side: Controls & Map -->
+        <div class="map-section">
+          <div class="map-controls">
+            <div class="control-group">
+              <label class="control-label">Visualization Mode</label>
+              <div class="toggle-buttons" id="global-mode-toggle-group">
+                <button id="btn-global-exports" class="toggle-btn active" aria-pressed="true">Exports</button>
+                <button id="btn-global-imports" class="toggle-btn" aria-pressed="false">Imports</button>
+                <button id="btn-global-balance" class="toggle-btn" aria-pressed="false">Trade Balance</button>
+              </div>
+            </div>
+            <div class="control-group search-group">
+              <label class="control-label" for="global-country-search">Find Country</label>
+              <select id="global-country-search" class="country-search-select">
+                <option value="">Select a country...</option>
+                <!-- Dynamically populated in app.js -->
+              </select>
+            </div>
+            <div class="map-legend">
+              <div class="legend-title" id="global-legend-title-text">U.S. Export Value Scale</div>
+              <div class="legend-gradient" id="global-legend-gradient-bar"></div>
+              <div class="legend-labels">
+                <span id="global-legend-min">$0B</span>
+                <span id="global-legend-mid">$200B</span>
+                <span id="global-legend-max">$400B</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="svg-map-wrapper global-map-wrapper">
+            <div id="global-svg-map">
+              <!-- World SVG map will be injected dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Details Pane -->
+        <div class="trade-details-section">
+          <div class="details-card card--empty" id="global-details-card-empty">
+            <div class="empty-state-icon" aria-hidden="true">🌎</div>
+            <h3>Select a Country</h3>
+            <p>Hover over or click a country on the map or select from the dropdown to view detailed trade statistics with the United States.</p>
+          </div>
+          
+          <div class="details-card" id="global-details-card-content" style="display: none;">
+            <header class="details-header">
+              <h2 class="state-title" id="global-detail-country-name">Country</h2>
+              <span class="state-abbr" id="global-detail-country-abbr">XX</span>
+            </header>
+            
+            <div class="details-body">
+              <div class="trade-metric-row">
+                <div class="trade-metric">
+                  <span class="trade-label">U.S. Exports to</span>
+                  <div class="trade-value value--exports" id="global-detail-exports-val">$0.0B</div>
+                </div>
+                <div class="trade-metric">
+                  <span class="trade-label">U.S. Imports from</span>
+                  <div class="trade-value value--imports" id="global-detail-imports-val">$0.0B</div>
+                </div>
+              </div>
+
+              <div class="comparison-bar-wrap">
+                <div class="comparison-bar" id="global-detail-ratio-bar">
+                  <div class="ratio-segment ratio--exports" id="global-detail-ratio-exports" style="width: 50%"></div>
+                  <div class="ratio-segment ratio--imports" id="global-detail-ratio-imports" style="width: 50%"></div>
+                </div>
+                <div class="comparison-labels">
+                  <span id="global-detail-ratio-exports-lbl">Exports (50%)</span>
+                  <span id="global-detail-ratio-imports-lbl">Imports (50%)</span>
+                </div>
+              </div>
+              
+              <div class="trade-metric-row secondary-metrics">
+                <div class="trade-metric">
+                  <span class="trade-label">Trade Balance</span>
+                  <div class="trade-value" id="global-detail-balance-val">$0.0B</div>
+                </div>
+                <div class="trade-metric">
+                  <span class="trade-label">Share of U.S. Trade</span>
+                  <div class="trade-value" id="global-detail-share-val">0.0%</div>
+                </div>
+              </div>
+
+              <div class="detail-info-block">
+                <div class="info-label">Top U.S. Export Commodity</div>
+                <div class="info-value" id="global-detail-exports-top">Commodity</div>
+              </div>
+
+              <div class="detail-info-block">
+                <div class="info-label">Top U.S. Import Commodity</div>
+                <div class="info-value" id="global-detail-imports-top">Commodity</div>
+              </div>
+
+              <div class="detail-info-block relation-description-block">
+                <div class="info-label">Trade Relationship Summary</div>
+                <p class="relationship-desc" id="global-detail-desc">Details of trade relationship.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick stats table / Top partners ranking -->
+          <div class="rankings-box">
+            <h3 class="rankings-heading" id="global-rankings-title">Top 5 U.S. Trading Partners</h3>
+            <div class="toggle-buttons mini" id="global-rank-toggle-group">
+              <button id="global-rank-btn-total" class="toggle-btn mini-btn active" aria-pressed="true">Total Trade</button>
+              <button id="global-rank-btn-exports" class="toggle-btn mini-btn" aria-pressed="false">Exports</button>
+              <button id="global-rank-btn-imports" class="toggle-btn mini-btn" aria-pressed="false">Imports</button>
+            </div>
+            <ol class="rankings-list" id="global-rankings-list-el">
+              <!-- Will be populated dynamically -->
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="map-tooltip" id="map-tooltip-el" role="tooltip" style="display: none;"></div>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <span>US Macro Dashboard · June 27, 2026</span>
+    <span class="footer-sep" aria-hidden="true">·</span>
+    <span>BEA, BLS, Federal Reserve, ISM, U. of Michigan, Census Bureau</span>
+    <span class="footer-sep" aria-hidden="true">·</span>
+    <span>For informational purposes only. Not financial advice.</span>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

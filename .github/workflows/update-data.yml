@@ -1,0 +1,38 @@
+name: Hourly Economic Data Update
+
+on:
+  schedule:
+    # Run at the top of every hour
+    - cron: '0 * * * *'
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+permissions:
+  contents: write # Essential to push committed changes back to repository
+
+jobs:
+  update-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run metrics update script
+        run: node scripts/update_metrics.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          # Check if there are changes to commit to avoid failing the action run
+          if git diff --staged --quiet; then
+            echo "No changes in data.json"
+          else
+            git commit -m "data: hourly dashboard metric update [skip ci]"
+            git push
+          fi
