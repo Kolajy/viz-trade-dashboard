@@ -6,6 +6,7 @@
         "id": "block-gdp",
         "name": "Real GDP Growth",
         "periodKey": "macro.gdp_period",
+        "source": "BEA",
         "valueKey": "macro.gdp",
         "unit": "%",
         "tagKey": "macro.gdp_tag",
@@ -18,6 +19,7 @@
         "id": "block-unemployment",
         "name": "Unemployment Rate",
         "periodKey": "macro.unemployment_period",
+        "source": "BLS",
         "valueKey": "macro.unemployment",
         "unit": "%",
         "tagKey": "macro.unemployment_tag",
@@ -30,6 +32,7 @@
         "id": "block-payrolls",
         "name": "Non-Farm Payrolls",
         "periodKey": "macro.payrolls_period",
+        "source": "BLS",
         "valueKey": "macro.payrolls",
         "unit": "K",
         "tagKey": "macro.payrolls_tag",
@@ -42,6 +45,7 @@
         "id": "block-wage-growth",
         "name": "Wage Growth (AHE YoY)",
         "periodKey": "macro.wage_growth_period",
+        "source": "BLS",
         "valueKey": "macro.wage_growth",
         "unit": "%",
         "tagKey": "macro.wage_growth_tag",
@@ -54,6 +58,7 @@
         "id": "block-retail",
         "name": "Retail Sales (MoM)",
         "periodKey": "macro.retail_sales_period",
+        "source": "Census Bureau",
         "valueKey": "macro.retail_sales",
         "unit": "%",
         "tagKey": "macro.retail_sales_tag",
@@ -66,6 +71,7 @@
         "id": "block-housing",
         "name": "Housing Starts (SAAR)",
         "periodKey": "macro.housing_starts_period",
+        "source": "Census Bureau",
         "valueKey": "macro.housing_starts",
         "unit": "M",
         "tagKey": "macro.housing_starts_tag",
@@ -78,6 +84,7 @@
         "id": "block-sentiment",
         "name": "Consumer Sentiment",
         "periodKey": "macro.sentiment_period",
+        "source": "Univ of Michigan",
         "valueKey": "macro.sentiment",
         "unit": "",
         "tagKey": "macro.sentiment_tag",
@@ -90,6 +97,7 @@
         "id": "block-ism",
         "name": "ISM Manufacturing PMI",
         "periodKey": "macro.ism_pmi_period",
+        "source": "ISM",
         "valueKey": "macro.ism_pmi",
         "tagKey": "macro.ism_pmi_tag",
         "barKey": "macro.pmi_pos",
@@ -100,6 +108,7 @@
         "id": "block-services-ism",
         "name": "ISM Services PMI",
         "periodKey": "macro.services_pmi_period",
+        "source": "ISM",
         "valueKey": "macro.services_pmi",
         "tagKey": "macro.services_pmi_tag",
         "barKey": "macro.services_pmi_pos",
@@ -110,6 +119,7 @@
         "id": "block-cpi",
         "name": "CPI (YoY)",
         "periodKey": "inflation.cpi_period",
+        "source": "BLS",
         "valueKey": "inflation.cpi",
         "barKey": "inflation.cpi_bar",
         "type": "inflation"
@@ -118,6 +128,7 @@
         "id": "block-pce",
         "name": "PCE Inflation (YoY)",
         "periodKey": "inflation.pce_period",
+        "source": "BEA",
         "valueKey": "inflation.pce",
         "barKey": "inflation.pce_bar",
         "type": "inflation"
@@ -126,6 +137,7 @@
         "id": "block-core-pce",
         "name": "Core PCE Inflation (YoY)",
         "periodKey": "inflation.core_pce_period",
+        "source": "BEA",
         "valueKey": "inflation.core_pce",
         "barKey": "inflation.core_pce_bar",
         "type": "inflation"
@@ -135,6 +147,7 @@
   "stateTradeDashboard": {
     "dataUrl": "./tradeData.json",
     "mapUrl": "./usa-map-dimensions.json",
+    "source": "U.S. Census Bureau (Foreign Trade Division)",
     "modes": {
       "exports": {
         "label": "Exports",
@@ -149,6 +162,7 @@
   "globalTradeDashboard": {
     "dataUrl": "./globalTradeData.json",
     "mapUrl": "./world-map.svg",
+    "source": "U.S. Census Bureau (Foreign Trade Division)",
     "modes": {
       "exports": {
         "label": "Exports",

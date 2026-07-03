@@ -27,6 +27,7 @@ export function initMacroDashboard(config, data) {
       const val = getValueByPath(data, metric.valueKey);
       const tag = getValueByPath(data, metric.tagKey);
       const barWidth = metric.barKey ? getValueByPath(data, metric.barKey) : null;
+      const periodVal = metric.periodKey ? getValueByPath(data, metric.periodKey) : null;
       
       if (val === null || val === undefined) return;
 
@@ -36,6 +37,15 @@ export function initMacroDashboard(config, data) {
         updateInflationMetric(metric.id, val, barWidth);
       } else {
         updateMetricBlock(metric.id, val, metric.unit, tag, barWidth, metric.isSigned);
+      }
+
+      // Render period and source agency metadata dynamically
+      const block = document.getElementById(metric.id);
+      if (block) {
+        const periodEl = block.querySelector('.metric-period');
+        if (periodEl && periodVal) {
+          periodEl.textContent = `${periodVal} · ${metric.source}`;
+        }
       }
     });
   }
