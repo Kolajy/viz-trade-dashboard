@@ -7,10 +7,15 @@
 import { initMacroDashboard } from './js/macro.js';
 import { initStateTradeDashboard } from './js/state-trade.js';
 import { initGlobalTradeDashboard } from './js/global-trade.js';
+import { initTreasuryDashboard } from './js/treasury.js';
+import { initFedHealthDashboard } from './js/fed-health.js';
 
 let appConfig = null;
+let appData = null;
 let isStateMapInitialized = false;
 let isGlobalMapInitialized = false;
+let isTreasuryInitialized = false;
+let isFedHealthInitialized = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   // Load dashboard configuration first
@@ -29,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return res.json();
     })
     .then(data => {
+      appData = data;
       // Boot up the macro indicators dashboard dynamically
       initMacroDashboard(appConfig, data);
     })
@@ -79,6 +85,16 @@ function initTabs() {
       if (targetTab === 'tab-global-trade' && !isGlobalMapInitialized && appConfig) {
         initGlobalTradeDashboard(appConfig);
         isGlobalMapInitialized = true;
+      }
+
+      if (targetTab === 'tab-treasury' && !isTreasuryInitialized && appConfig && appData) {
+        initTreasuryDashboard(appConfig, appData);
+        isTreasuryInitialized = true;
+      }
+
+      if (targetTab === 'tab-fed-health' && !isFedHealthInitialized && appConfig && appData) {
+        initFedHealthDashboard(appConfig, appData);
+        isFedHealthInitialized = true;
       }
     });
   });

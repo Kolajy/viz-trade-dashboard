@@ -1,0 +1,232 @@
+/* ============================================================
+   MacroScope — Treasury Yield Curve Dashboard Styles
+   ============================================================ */
+
+.treasury-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-lg) 0;
+}
+
+.chart-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border-dim);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.chart-source {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.svg-curve-wrapper {
+  width: 100%;
+  aspect-ratio: 780 / 400;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-dim);
+  overflow: hidden;
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#yield-curve-svg {
+  width: 100%;
+  height: 100%;
+}
+
+#yield-curve-svg .gridlines line {
+  stroke: var(--border-dim);
+  stroke-width: 1px;
+}
+
+#yield-curve-svg .gridlines text {
+  fill: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+#yield-curve-svg .x-axis line {
+  stroke: rgba(255, 255, 255, 0.03);
+  stroke-width: 1px;
+}
+
+#yield-curve-svg .x-axis text {
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+#yield-curve-svg path#yield-curve-path {
+  stroke: var(--color-up);
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: d 0.3s ease;
+}
+
+#yield-curve-svg .curve-node {
+  fill: var(--bg-surface);
+  stroke: var(--color-up);
+  stroke-width: 2px;
+  cursor: pointer;
+  transition: r 0.15s ease, fill 0.15s ease;
+}
+
+#yield-curve-svg .curve-node:hover {
+  r: 7px;
+  fill: var(--color-up);
+}
+
+/* Treasury Sidebar */
+.treasury-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.spreads-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sidebar-heading {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border-dim);
+  padding-bottom: var(--space-xs);
+}
+
+.spread-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.spread-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.spread-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.spread-status {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.surplus-text {
+  color: var(--color-up);
+}
+
+.deficit-text {
+  color: var(--color-down);
+}
+
+.spread-value {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.spread-item#spread-2y-10y .spread-value {
+  color: var(--color-up);
+}
+
+.spread-item#spread-3m-10y .spread-value {
+  color: var(--color-down);
+}
+
+/* Yields table */
+.yields-table-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.yields-table-wrap {
+  overflow: hidden;
+}
+
+.yields-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.yields-table th,
+.yields-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.yields-table th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.yields-table td.numeric {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.yields-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+@media (max-width: 900px) {
+  .treasury-layout {
+    grid-template-columns: 1fr;
+    padding: var(--space-lg);
+  }
+}

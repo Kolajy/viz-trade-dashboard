@@ -177,5 +177,31 @@
         "title": "Net Trade Balance (Surplus/Deficit)"
       }
     }
+  },
+  "treasuryDashboard": {
+    "dataUrl": "./data.json",
+    "source": "U.S. Department of the Treasury",
+    "maturities": [
+      { "key": "1M", "label": "1-Month" },
+      { "key": "3M", "label": "3-Month" },
+      { "key": "6M", "label": "6-Month" },
+      { "key": "1Y", "label": "1-Year" },
+      { "key": "2Y", "label": "2-Year" },
+      { "key": "3Y", "label": "3-Year" },
+      { "key": "5Y", "label": "5-Year" },
+      { "key": "7Y", "label": "7-Year" },
+      { "key": "10Y", "label": "10-Year" },
+      { "key": "20Y", "label": "20-Year" },
+      { "key": "30Y", "label": "30-Year" }
+    ]
+  },
+  "fedHealthDashboard": {
+    "dataUrl": "./data.json",
+    "source": "Federal Reserve Board",
+    "assetsConfig": {
+      "treasuries": { "key": "fedHealth.treasuryHoldings", "label": "U.S. Treasuries", "color": "var(--color-up)" },
+      "mbs": { "key": "fedHealth.mbsHoldings", "label": "Mortgage-Backed Securities", "color": "#8c52ff" },
+      "other": { "key": "fedHealth.otherHoldings", "label": "Loans & Other Assets", "color": "var(--text-muted)" }
+    }
   }
 }

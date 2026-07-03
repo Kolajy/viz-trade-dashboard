@@ -1,0 +1,210 @@
+/* ============================================================
+   MacroScope — Federal Reserve Health Dashboard Styles
+   ============================================================ */
+
+.fed-health-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-lg) 0;
+}
+
+.fed-assets-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.fed-summary-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.fed-kpi {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.fed-kpi-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fed-kpi-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Assets segmented stack bar */
+.assets-stack-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.assets-segmented-bar {
+  display: flex;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.assets-segmented-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.assets-segmented-segment:hover {
+  filter: brightness(1.15);
+}
+
+.assets-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-xs);
+}
+
+.assets-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.assets-legend-dot {
+  width: 10px;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 2px;
+}
+
+.assets-legend-val {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* QT Pace Banner */
+.qt-pace-banner {
+  border: 1px dashed var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.qt-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.qt-value {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-caution);
+}
+
+.qt-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Reserves Liabilities Health Right Side */
+.fed-liabilities-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Reserve Health Meter */
+.reserve-health-meter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: var(--space-md) 0 var(--space-lg) 0;
+  padding: var(--space-md);
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+}
+
+.meter-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.meter-bar-wrap {
+  position: relative;
+  height: 12px;
+  background-color: var(--bg-base);
+  border-radius: 6px;
+  overflow: visible;
+  border: 1px solid var(--border-dim);
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(to right, var(--color-down), var(--color-caution), var(--color-up));
+  transition: width 0.3s ease;
+}
+
+.meter-threshold {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background-color: var(--text-primary);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+.meter-labels {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+  height: 14px;
+}
+
+@media (max-width: 900px) {
+  .fed-health-layout {
+    grid-template-columns: 1fr;
+    padding: var(--space-lg);
+  }
+  .fed-summary-kpis {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+}

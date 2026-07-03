@@ -73,5 +73,35 @@
     "core_pce": 3.4,
     "core_pce_period": "May 2026",
     "core_pce_bar": "68%"
+  },
+  "treasury": {
+    "lastUpdated": "2026-07-03T17:42:00.000Z",
+    "yields": {
+      "1M": 5.15,
+      "3M": 5.18,
+      "6M": 5.10,
+      "1Y": 4.65,
+      "2Y": 4.07,
+      "3Y": 3.95,
+      "5Y": 4.02,
+      "7Y": 4.18,
+      "10Y": 4.38,
+      "20Y": 4.60,
+      "30Y": 4.52
+    },
+    "spread2y10y": 0.31,
+    "spread3m10y": -0.80
+  },
+  "fedHealth": {
+    "lastUpdated": "2026-07-03T17:42:00.000Z",
+    "totalAssets": 6.74,
+    "change1y": -820.0,
+    "treasuryHoldings": 4.12,
+    "mbsHoldings": 2.12,
+    "otherHoldings": 0.50,
+    "bankReserves": 3.15,
+    "reverseRepo": 0.38,
+    "ioerRate": 3.65,
+    "qtPacing": "Treasuries $25B/mo · MBS $15B/mo"
   }
 }

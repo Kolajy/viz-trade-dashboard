@@ -30,6 +30,8 @@
     <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-macro" id="tab-btn-macro">Macro Indicators</button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-trade" id="tab-btn-trade">State Trade Map</button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-global-trade" id="tab-btn-global-trade">Global Trade Map</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-treasury" id="tab-btn-treasury">Treasury Yield</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-fed-health" id="tab-btn-fed-health">Fed Health</button>
   </nav>
 
   <main class="dashboard" role="main">
@@ -631,6 +633,165 @@
             <ol class="rankings-list" id="global-rankings-list-el">
               <!-- Will be populated dynamically -->
             </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Treasury Yield Tab Pane -->
+    <div id="tab-treasury" class="tab-pane" role="tabpanel" aria-labelledby="tab-btn-treasury" style="display: none;">
+      <div class="treasury-layout">
+        <!-- Left Side: Interactive SVG Yield Curve -->
+        <div class="chart-section">
+          <header class="chart-header">
+            <h2 class="chart-title">U.S. Treasury Yield Curve</h2>
+            <span class="chart-source" id="treasury-source-text">Source: U.S. Department of the Treasury</span>
+          </header>
+          
+          <div class="svg-curve-wrapper">
+            <svg id="yield-curve-svg" viewBox="0 0 780 400" xmlns="http://www.w3.org/2000/svg">
+              <!-- Y-Axis Gridlines & Labels (0% to 6%) -->
+              <g class="gridlines"></g>
+              <!-- Maturities X-Axis Gridlines -->
+              <g class="x-axis"></g>
+              <!-- Yield Curve Line Path -->
+              <path id="yield-curve-path" d="" fill="none" stroke="var(--color-up)" stroke-width="3"></path>
+              <!-- Yield Curve Nodes (Circles) -->
+              <g id="yield-curve-nodes"></g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Right Side: Spreads and Rates Table -->
+        <div class="treasury-sidebar">
+          <!-- Spreads KPI block -->
+          <div class="spreads-box">
+            <h3 class="sidebar-heading">Yield Spreads (Recession Indicators)</h3>
+            <div class="spread-item" id="spread-2y-10y">
+              <div class="spread-meta">
+                <span class="spread-name">2Y / 10Y Spread</span>
+                <span class="spread-status surplus-text" id="spread-2y-10y-status">Uninverted</span>
+              </div>
+              <div class="spread-value" id="spread-2y-10y-val">+0.31%</div>
+            </div>
+            <div class="spread-item" id="spread-3m-10y">
+              <div class="spread-meta">
+                <span class="spread-name">3M / 10Y Spread</span>
+                <span class="spread-status deficit-text" id="spread-3m-10y-status">Inverted</span>
+              </div>
+              <div class="spread-value" id="spread-3m-10y-val">-0.80%</div>
+            </div>
+          </div>
+
+          <!-- Yields table -->
+          <div class="yields-table-box">
+            <h3 class="sidebar-heading">Current Treasury Rates</h3>
+            <div class="yields-table-wrap">
+              <table class="yields-table">
+                <thead>
+                  <tr>
+                    <th>Maturity</th>
+                    <th class="numeric">Yield</th>
+                  </tr>
+                </thead>
+                <tbody id="yields-table-body">
+                  <!-- Dynamically populated in js/treasury.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fed Health Tab Pane -->
+    <div id="tab-fed-health" class="tab-pane" role="tabpanel" aria-labelledby="tab-btn-fed-health" style="display: none;">
+      <div class="fed-health-layout">
+        <!-- Left Side: Assets Composition & QT pace -->
+        <div class="fed-assets-section">
+          <header class="chart-header">
+            <h2 class="chart-title">Federal Reserve Balance Sheet Assets</h2>
+            <span class="chart-source" id="fed-source-text">Source: Federal Reserve Board</span>
+          </header>
+
+          <div class="fed-summary-kpis">
+            <div class="fed-kpi">
+              <span class="fed-kpi-label">Total Assets</span>
+              <div class="fed-kpi-value" id="fed-total-assets-val">$6.74T</div>
+            </div>
+            <div class="fed-kpi">
+              <span class="fed-kpi-label">1-Year QT Change</span>
+              <div class="fed-kpi-value deficit-text" id="fed-change-1y-val">-$820B</div>
+            </div>
+            <div class="fed-kpi">
+              <span class="fed-kpi-label">IOER Policy Rate</span>
+              <div class="fed-kpi-value surplus-text" id="fed-ioer-val">3.65%</div>
+            </div>
+          </div>
+
+          <!-- Assets horizontal segmented stack bar -->
+          <div class="assets-stack-box">
+            <h3 class="sidebar-heading">Assets Portfolio Breakdown</h3>
+            <div class="assets-segmented-bar" id="fed-assets-stack">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="assets-legend" id="fed-assets-legend">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- QT pace banner -->
+          <div class="qt-pace-banner">
+            <div class="qt-label">Quantitative Tightening (QT) Running Speed</div>
+            <div class="qt-value" id="fed-qt-pace-val">Treasuries $25B/mo · MBS $15B/mo</div>
+            <p class="qt-desc">The Fed is running down its balance sheet by allowing securities to mature without reinvestment, reducing bank reserves and draining excess dollar liquidity.</p>
+          </div>
+        </div>
+
+        <!-- Right Side: Reserves & Liability Health -->
+        <div class="fed-liabilities-section">
+          <div class="details-card">
+            <header class="details-header">
+              <h2 class="state-title">Banking System Reserves</h2>
+              <span class="state-abbr">LIABILITIES</span>
+            </header>
+            
+            <div class="details-body">
+              <div class="trade-metric-row">
+                <div class="trade-metric">
+                  <span class="trade-label">Bank Reserves</span>
+                  <div class="trade-value value--exports" id="fed-reserves-val">$3.15T</div>
+                </div>
+                <div class="trade-metric">
+                  <span class="trade-label">Reverse Repo Pool</span>
+                  <div class="trade-value value--imports" id="fed-rrp-val">$0.38T</div>
+                </div>
+              </div>
+
+              <!-- Reserves comparison visual -->
+              <div class="reserve-health-meter">
+                <div class="meter-label">Liquidity Reserve Buffers (Abundant Reserves Regime)</div>
+                <div class="meter-bar-wrap">
+                  <div class="meter-fill" id="fed-reserve-meter-fill" style="width: 75%"></div>
+                  <div class="meter-threshold" style="left: 45%" title="Estimated minimum comfortable reserves level (LCR)"></div>
+                </div>
+                <div class="meter-labels">
+                  <span>Critical Level</span>
+                  <span class="target-label" style="position: absolute; left: 45%; transform: translateX(-50%)">Comfort Threshold</span>
+                  <span>Ample Liquidity</span>
+                </div>
+              </div>
+
+              <div class="detail-info-block">
+                <div class="info-label">Reserve Health Status</div>
+                <div class="info-value surplus-text" style="color: var(--color-up)">Ample & Comfy</div>
+              </div>
+
+              <div class="detail-info-block">
+                <div class="info-label">Reverse Repo (RRP) Utilization</div>
+                <p class="relationship-desc">The Federal Reserve's Overnight Reverse Repurchase Agreement Facility sits at <span id="fed-rrp-desc-val">$380 Billion</span>. RRP pools acts as a liquidity valve for money market funds, absorbing excess cash when banking system liquidity is overflowing.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
