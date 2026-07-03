@@ -42,6 +42,12 @@ export function initFedHealthDashboard(config, data) {
 
   // Render Assets portfolio segmented stack bar & legend
   renderAssetsComposition(fed, assetsConf);
+
+  // Render QT Progress Bar
+  renderQTProgress(fed);
+
+  // Render detailed Liabilities table
+  renderLiabilitiesTable(fed);
 }
 
 function renderAssetsComposition(fed, assetsConf) {
@@ -77,5 +83,52 @@ function renderAssetsComposition(fed, assetsConf) {
       <span>${conf.label}: <span class="assets-legend-val">$${val.toFixed(2)}T</span> <span style="font-size:0.75rem; color:var(--text-muted)">(${share.toFixed(1)}%)</span></span>
     `;
     legendContainer.appendChild(legendItem);
+  });
+}
+
+function renderQTProgress(fed) {
+  const peak = fed.peakAssets;
+  const current = fed.totalAssets;
+  const targetFloor = 6.0; // Fed estimated target comfortable floor level
+
+  const totalTargetReduction = peak - targetFloor;
+  const achievedReduction = peak - current;
+  const reductionPct = Math.min(Math.max(achievedReduction / totalTargetReduction, 0), 1) * 100;
+
+  const progressFill = document.getElementById('fed-qt-progress-fill');
+  const textReduction = document.getElementById('fed-qt-total-reduction');
+
+  if (progressFill) {
+    progressFill.style.width = `${reductionPct}%`;
+  }
+  if (textReduction) {
+    textReduction.textContent = `-$${achievedReduction.toFixed(2)}T Reduction`;
+  }
+}
+
+function renderLiabilitiesTable(fed) {
+  const tbody = document.getElementById('fed-liabilities-table-body');
+  if (!tbody) return;
+
+  const total = fed.totalAssets; // Assets = Liabilities
+
+  const positions = [
+    { label: 'Bank Reserves', val: fed.bankReserves, class: 'val-exports' },
+    { label: 'Overnight Reverse Repos (RRP)', val: fed.reverseRepo, class: 'val-imports' },
+    { label: 'Treasury General Account (TGA)', val: fed.tga, class: 'neutral-text' },
+    { label: 'Currency in Circulation', val: fed.currencyInCirculation, class: 'neutral-text' },
+    { label: 'Other Liabilities', val: fed.otherLiabilities, class: 'neutral-text' }
+  ];
+
+  tbody.innerHTML = '';
+  positions.forEach(pos => {
+    const share = (pos.val / total) * 100;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${pos.label}</td>
+      <td class="numeric ${pos.class}">$${pos.val.toFixed(2)}T</td>
+      <td class="numeric" style="font-family:var(--font-mono); color:var(--text-secondary)">${share.toFixed(1)}%</td>
+    `;
+    tbody.appendChild(tr);
   });
 }

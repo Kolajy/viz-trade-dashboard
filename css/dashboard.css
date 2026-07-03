@@ -383,3 +383,38 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ============================================================
+   Commodity Lists visual styling (Shared details element)
+   ============================================================ */
+.commodity-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-xs) 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.commodity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.commodity-item-name {
+  font-weight: 450;
+  text-align: left;
+  padding-right: var(--space-xs);
+}
+
+.commodity-item-value {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+

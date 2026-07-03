@@ -2,7 +2,7 @@
    MacroScope — U.S. State Trade Map Dashboard Module
    ============================================================ */
 
-import { getColorForValue, showTooltip, hideTooltip, moveTooltip } from './utils.js';
+import { getColorForValue, showTooltip, hideTooltip, moveTooltip, renderCommodityList } from './utils.js';
 
 let tradeData = null;
 let mapDimensions = null;
@@ -253,7 +253,6 @@ function selectState(abbr) {
   rows.forEach(r => {
     if (r.getAttribute('data-abbr') === abbr) {
       r.classList.add('selected');
-      r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
       r.classList.remove('selected');
     }
@@ -274,8 +273,8 @@ function updateDetailsPanel(abbr) {
   document.getElementById('detail-state-abbr').textContent = abbr;
   document.getElementById('detail-exports-val').textContent = `$${stateData.exportsTotal.toFixed(1)}B`;
   document.getElementById('detail-imports-val').textContent = `$${stateData.importsTotal.toFixed(1)}B`;
-  document.getElementById('detail-exports-top').textContent = stateData.exportsTop;
-  document.getElementById('detail-imports-top').textContent = stateData.importsTop;
+  renderCommodityList('detail-exports-list', stateData.exportsList);
+  renderCommodityList('detail-imports-list', stateData.importsList);
   document.getElementById('detail-partner').textContent = stateData.topPartner;
 
   // Bar ratios
@@ -443,9 +442,6 @@ function renderLedgerTable() {
 
     tr.addEventListener('click', () => {
       selectState(s.abbr);
-      if (window.innerWidth <= 900) {
-        document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
     });
 
     tbody.appendChild(tr);

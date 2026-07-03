@@ -208,3 +208,46 @@
     gap: var(--space-sm);
   }
 }
+
+/* QT Reduction Progress Box */
+.qt-reduction-progress-box {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.qt-progress-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.qt-progress-bar-wrap {
+  position: relative;
+  height: 10px;
+  background-color: var(--bg-base);
+  border-radius: 5px;
+  border: 1px solid var(--border-dim);
+}
+
+.qt-progress-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  background-color: #ff9f1a; /* Orange for warning/reduction level */
+  transition: width 0.3s ease;
+}
+
+.qt-progress-marker {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background-color: var(--text-primary);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}

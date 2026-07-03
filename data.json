@@ -89,18 +89,48 @@
       "20Y": 4.60,
       "30Y": 4.52
     },
+    "yields1MonthAgo": {
+      "1M": 5.25,
+      "3M": 5.30,
+      "6M": 5.25,
+      "1Y": 4.90,
+      "2Y": 4.65,
+      "3Y": 4.55,
+      "5Y": 4.45,
+      "7Y": 4.48,
+      "10Y": 4.55,
+      "20Y": 4.75,
+      "30Y": 4.68
+    },
+    "yields1YearAgo": {
+      "1M": 5.05,
+      "3M": 5.15,
+      "6M": 5.20,
+      "1Y": 5.00,
+      "2Y": 4.90,
+      "3Y": 4.75,
+      "5Y": 4.50,
+      "7Y": 4.40,
+      "10Y": 4.30,
+      "20Y": 4.55,
+      "30Y": 4.40
+    },
     "spread2y10y": 0.31,
     "spread3m10y": -0.80
   },
   "fedHealth": {
     "lastUpdated": "2026-07-03T17:42:00.000Z",
     "totalAssets": 6.74,
+    "peakAssets": 8.96,
     "change1y": -820.0,
     "treasuryHoldings": 4.12,
     "mbsHoldings": 2.12,
     "otherHoldings": 0.50,
     "bankReserves": 3.15,
     "reverseRepo": 0.38,
+    "tga": 0.75,
+    "currencyInCirculation": 2.35,
+    "otherLiabilities": 0.14,
     "ioerRate": 3.65,
     "qtPacing": "Treasuries $25B/mo · MBS $15B/mo"
   }

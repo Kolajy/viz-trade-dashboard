@@ -2,7 +2,7 @@
    MacroScope — Global Trade Map Dashboard Module
    ============================================================ */
 
-import { getColorForValue, getDivergingColor, showTooltip, hideTooltip, moveTooltip } from './utils.js';
+import { getColorForValue, getDivergingColor, showTooltip, hideTooltip, moveTooltip, renderCommodityList } from './utils.js';
 
 let globalTradeData = null;
 let worldMapSvgText = null;
@@ -316,8 +316,8 @@ function updateDetailsPanel(code) {
   document.getElementById('global-detail-country-abbr').textContent = code.toUpperCase();
   document.getElementById('global-detail-exports-val').textContent = `$${pData.exports.toFixed(1)}B`;
   document.getElementById('global-detail-imports-val').textContent = `$${pData.imports.toFixed(1)}B`;
-  document.getElementById('global-detail-exports-top').textContent = pData.topExport;
-  document.getElementById('global-detail-imports-top').textContent = pData.topImport;
+  renderCommodityList('global-detail-exports-list', pData.exportsList);
+  renderCommodityList('global-detail-imports-list', pData.importsList);
   document.getElementById('global-detail-desc').textContent = pData.desc;
 
   // Trade Balance formatting

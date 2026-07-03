@@ -230,3 +230,41 @@
     padding: var(--space-lg);
   }
 }
+
+/* Curve Legend inside chart header */
+.curve-legend {
+  display: flex;
+  gap: var(--space-md);
+  font-size: 0.8rem;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+.legend-color {
+  display: inline-block;
+  width: 14px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.current-color {
+  background-color: var(--color-up);
+}
+
+.ago-1m-color {
+  background-color: #5672a3;
+  height: 2px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.ago-1y-color {
+  background-color: #4d5c75;
+  height: 2px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}

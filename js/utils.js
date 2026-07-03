@@ -80,3 +80,36 @@ export function moveTooltip(tooltipEl, event) {
   tooltipEl.style.left = `${event.clientX}px`;
   tooltipEl.style.top = `${event.clientY}px`;
 }
+
+/**
+ * Render a list of commodities and their dollar amounts into a container.
+ */
+export function renderCommodityList(containerId, list) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  if (!list || list.length === 0) {
+    container.innerHTML = '<li class="commodity-item"><span class="commodity-item-name" style="color:var(--text-muted)">None listed</span></li>';
+    return;
+  }
+  
+  list.forEach(item => {
+    const li = document.createElement('li');
+    li.className = 'commodity-item';
+    
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'commodity-item-name';
+    nameSpan.textContent = item.commodity;
+    
+    const valSpan = document.createElement('span');
+    valSpan.className = 'commodity-item-value';
+    valSpan.textContent = `$${item.amount.toFixed(1)}B`;
+    
+    li.appendChild(nameSpan);
+    li.appendChild(valSpan);
+    container.appendChild(li);
+  });
+}
+

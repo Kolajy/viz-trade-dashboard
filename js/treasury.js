@@ -19,8 +19,8 @@ export function initTreasuryDashboard(config, data) {
   // Render spreads KPI card values
   renderSpreads(data.treasury);
 
-  // Render SVG Yield Curve
-  renderYieldCurveSVG(maturities, yields);
+  // Render SVG Yield Curve (passing whole treasury block for comparisons)
+  renderYieldCurveSVG(maturities, data.treasury);
 }
 
 function renderYieldsTable(maturities, yields) {
@@ -75,7 +75,7 @@ function renderSpreads(treasuryData) {
   }
 }
 
-function renderYieldCurveSVG(maturities, yields) {
+function renderYieldCurveSVG(maturities, treasuryData) {
   const svg = document.getElementById('yield-curve-svg');
   const tooltip = document.getElementById('map-tooltip-el');
   if (!svg) return;
@@ -83,9 +83,13 @@ function renderYieldCurveSVG(maturities, yields) {
   const gridlinesGroup = svg.querySelector('.gridlines');
   const xAxisGroup = svg.querySelector('.x-axis');
   const nodesGroup = document.getElementById('yield-curve-nodes');
-  const path = document.getElementById('yield-curve-path');
 
-  if (!gridlinesGroup || !xAxisGroup || !nodesGroup || !path) return;
+  // Paths
+  const pathCurrent = document.getElementById('yield-curve-path');
+  const path1m = document.getElementById('yield-curve-path-1m');
+  const path1y = document.getElementById('yield-curve-path-1y');
+
+  if (!gridlinesGroup || !xAxisGroup || !nodesGroup || !pathCurrent) return;
 
   // Clear previous rendering
   gridlinesGroup.innerHTML = '';
@@ -127,16 +131,30 @@ function renderYieldCurveSVG(maturities, yields) {
     gridlinesGroup.appendChild(text);
   }
 
+  const yieldsCurrent = treasuryData.yields;
+  const yields1m = treasuryData.yields1MonthAgo;
+  const yields1y = treasuryData.yields1YearAgo;
+
   // 2. Map coordinates and draw vertical guides
-  const points = [];
+  const pointsCurrent = [];
+  const points1m = [];
+  const points1y = [];
   const xStep = plotWidth / (maturities.length - 1);
 
   maturities.forEach((m, idx) => {
     const x = paddingLeft + idx * xStep;
-    const yVal = yields[m.key] || 0;
-    const y = paddingTop + plotHeight * (1 - yVal / maxYield);
-    
-    points.push({ x, y, val: yVal, label: m.label, key: m.key });
+
+    const yValCurrent = yieldsCurrent[m.key] || 0;
+    const yCurrent = paddingTop + plotHeight * (1 - yValCurrent / maxYield);
+    pointsCurrent.push({ x, y: yCurrent, val: yValCurrent, label: m.label, key: m.key });
+
+    const yVal1m = yields1m[m.key] || 0;
+    const y1m = paddingTop + plotHeight * (1 - yVal1m / maxYield);
+    points1m.push({ x, y: y1m, val: yVal1m });
+
+    const yVal1y = yields1y[m.key] || 0;
+    const y1y = paddingTop + plotHeight * (1 - yVal1y / maxYield);
+    points1y.push({ x, y: y1y, val: yVal1y });
 
     // Vertical line guide
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -155,19 +173,25 @@ function renderYieldCurveSVG(maturities, yields) {
     xAxisGroup.appendChild(text);
   });
 
-  // 3. Draw curved/straight path connecting points
-  let pathD = '';
-  points.forEach((pt, idx) => {
-    if (idx === 0) {
-      pathD += `M ${pt.x} ${pt.y}`;
-    } else {
-      pathD += ` L ${pt.x} ${pt.y}`;
-    }
-  });
-  path.setAttribute('d', pathD);
+  // Helper to build path string
+  const getPathString = (pts) => {
+    let d = '';
+    pts.forEach((pt, idx) => {
+      d += (idx === 0) ? `M ${pt.x} ${pt.y}` : ` L ${pt.x} ${pt.y}`;
+    });
+    return d;
+  };
 
-  // 4. Render hoverable circles/dots
-  points.forEach(pt => {
+  // 3. Render all three lines
+  pathCurrent.setAttribute('d', getPathString(pointsCurrent));
+  if (path1m) path1m.setAttribute('d', getPathString(points1m));
+  if (path1y) path1y.setAttribute('d', getPathString(points1y));
+
+  // 4. Render hoverable circles for current curve with comparison tooltips
+  pointsCurrent.forEach((pt, idx) => {
+    const pt1m = points1m[idx];
+    const pt1y = points1y[idx];
+
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', pt.x);
     circle.setAttribute('cy', pt.y);
@@ -179,8 +203,16 @@ function renderYieldCurveSVG(maturities, yields) {
         const html = `
           <div class="tooltip-header">${pt.label} Treasury</div>
           <div class="tooltip-row">
-            <span>Yield Rate:</span>
-            <span class="tooltip-val-bold" style="color: var(--color-up)">${pt.val.toFixed(2)}%</span>
+            <span style="color: var(--color-up)">Current:</span>
+            <span class="tooltip-val-bold">${pt.val.toFixed(2)}%</span>
+          </div>
+          <div class="tooltip-row">
+            <span style="color: #8da4c4">1M Ago:</span>
+            <span class="tooltip-val-bold">${pt1m.val.toFixed(2)}%</span>
+          </div>
+          <div class="tooltip-row">
+            <span style="color: #667994">1Y Ago:</span>
+            <span class="tooltip-val-bold">${pt1y.val.toFixed(2)}%</span>
           </div>
         `;
         showTooltip(tooltip, e, html);

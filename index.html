@@ -437,13 +437,17 @@
               </div>
               
               <div class="detail-info-block">
-                <div class="info-label">Top Export Commodity</div>
-                <div class="info-value" id="detail-exports-top">Commodity</div>
+                <div class="info-label">Export Commodities Breakdown</div>
+                <ul class="commodity-list" id="detail-exports-list">
+                  <!-- Dynamic list of exports -->
+                </ul>
               </div>
 
               <div class="detail-info-block">
-                <div class="info-label">Top Import Commodity</div>
-                <div class="info-value" id="detail-imports-top">Commodity</div>
+                <div class="info-label">Import Commodities Breakdown</div>
+                <ul class="commodity-list" id="detail-imports-list">
+                  <!-- Dynamic list of imports -->
+                </ul>
               </div>
 
               <div class="detail-info-block">
@@ -606,13 +610,17 @@
               </div>
 
               <div class="detail-info-block">
-                <div class="info-label">Top U.S. Export Commodity</div>
-                <div class="info-value" id="global-detail-exports-top">Commodity</div>
+                <div class="info-label">Export Commodities Breakdown</div>
+                <ul class="commodity-list" id="global-detail-exports-list">
+                  <!-- Dynamic list of exports -->
+                </ul>
               </div>
 
               <div class="detail-info-block">
-                <div class="info-label">Top U.S. Import Commodity</div>
-                <div class="info-value" id="global-detail-imports-top">Commodity</div>
+                <div class="info-label">Import Commodities Breakdown</div>
+                <ul class="commodity-list" id="global-detail-imports-list">
+                  <!-- Dynamic list of imports -->
+                </ul>
               </div>
 
               <div class="detail-info-block relation-description-block">
@@ -645,6 +653,11 @@
         <div class="chart-section">
           <header class="chart-header">
             <h2 class="chart-title">U.S. Treasury Yield Curve</h2>
+            <div class="curve-legend">
+              <span class="legend-item current"><span class="legend-color current-color"></span>Current</span>
+              <span class="legend-item ago-1m"><span class="legend-color ago-1m-color"></span>1M Ago</span>
+              <span class="legend-item ago-1y"><span class="legend-color ago-1y-color"></span>1Y Ago</span>
+            </div>
             <span class="chart-source" id="treasury-source-text">Source: U.S. Department of the Treasury</span>
           </header>
           
@@ -654,7 +667,9 @@
               <g class="gridlines"></g>
               <!-- Maturities X-Axis Gridlines -->
               <g class="x-axis"></g>
-              <!-- Yield Curve Line Path -->
+              <!-- Yield Curve Line Paths -->
+              <path id="yield-curve-path-1y" d="" fill="none" stroke="#4d5c75" stroke-width="1.5" stroke-dasharray="4,4"></path>
+              <path id="yield-curve-path-1m" d="" fill="none" stroke="#5672a3" stroke-width="1.5" stroke-dasharray="3,3"></path>
               <path id="yield-curve-path" d="" fill="none" stroke="var(--color-up)" stroke-width="3"></path>
               <!-- Yield Curve Nodes (Circles) -->
               <g id="yield-curve-nodes"></g>
@@ -729,6 +744,20 @@
             </div>
           </div>
 
+          <!-- Assets composition / Peak Reduction -->
+          <div class="qt-reduction-progress-box">
+            <h3 class="sidebar-heading">Balance Sheet Reduction (QT Progress)</h3>
+            <div class="qt-progress-row">
+              <span class="progress-label">Peak: $8.96T (June 2022)</span>
+              <span class="progress-label val-exports" id="fed-qt-total-reduction" style="color: var(--color-down); font-family: var(--font-mono); font-weight:600;">-$2.22T Reduction</span>
+              <span class="progress-label">Target Floor: ~$6.0T</span>
+            </div>
+            <div class="qt-progress-bar-wrap">
+              <div class="qt-progress-bar-fill" id="fed-qt-progress-fill" style="width: 75%"></div>
+              <div class="qt-progress-marker" style="left: 60%" title="Target reserve floor limit (~$6.0T)"></div>
+            </div>
+          </div>
+
           <!-- Assets horizontal segmented stack bar -->
           <div class="assets-stack-box">
             <h3 class="sidebar-heading">Assets Portfolio Breakdown</h3>
@@ -779,6 +808,24 @@
                   <span>Critical Level</span>
                   <span class="target-label" style="position: absolute; left: 45%; transform: translateX(-50%)">Comfort Threshold</span>
                   <span>Ample Liquidity</span>
+                </div>
+              </div>
+
+              <div class="detail-info-block">
+                <div class="info-label">Liabilities Composition Breakdown</div>
+                <div class="yields-table-wrap" style="margin-top: var(--space-xs)">
+                  <table class="yields-table" style="font-size: 0.8rem;">
+                    <thead>
+                      <tr>
+                        <th>Reserve Balance Sheet Position</th>
+                        <th class="numeric">Amount</th>
+                        <th class="numeric">Share</th>
+                      </tr>
+                    </thead>
+                    <tbody id="fed-liabilities-table-body">
+                      <!-- Populated dynamically in js/fed-health.js -->
+                    </tbody>
+                  </table>
                 </div>
               </div>
 

@@ -7,10 +7,54 @@
       "imports": 566.1,
       "totalTrade": 951.9,
       "tradeBalance": -180.3,
-      "shareOfTotal": 17.0,
+      "shareOfTotal": 17,
       "topExport": "Machinery, Auto Parts & Electrical Equipment",
       "topImport": "Passenger Vehicles, Computers & Auto Parts",
-      "desc": "Mexico is the largest trading partner of the United States. Trade is highly integrated due to the USMCA agreement, particularly in the automotive and manufacturing sectors."
+      "desc": "Mexico is the largest trading partner of the United States. Trade is highly integrated due to the USMCA agreement, particularly in the automotive and manufacturing sectors.",
+      "exportsList": [
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 170.8
+        },
+        {
+          "commodity": "Machinery, Auto Parts & Electrical Equipment",
+          "amount": 169.3
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 18.1
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 16.5
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 11.1
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 264.5
+        },
+        {
+          "commodity": "Passenger Vehicles, Computers & Auto Parts",
+          "amount": 222.3
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 31.4
+        },
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 26
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 21.9
+        }
+      ]
     },
     "ca": {
       "name": "Canada",
@@ -21,7 +65,51 @@
       "shareOfTotal": 12.9,
       "topExport": "Vehicles & Auto Parts, Machinery, Chemicals",
       "topImport": "Crude Petroleum, Passenger Vehicles, Machinery",
-      "desc": "Canada is the second-largest trading partner of the US. Energy trade is highly prominent, with Canada being the largest supplier of crude oil imports to the US."
+      "desc": "Canada is the second-largest trading partner of the US. Energy trade is highly prominent, with Canada being the largest supplier of crude oil imports to the US.",
+      "exportsList": [
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 160.3
+        },
+        {
+          "commodity": "Vehicles & Auto Parts, Machinery, Chemicals",
+          "amount": 138.9
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 16.2
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 15.4
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 12.1
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 182.7
+        },
+        {
+          "commodity": "Crude Petroleum, Passenger Vehicles, Machinery",
+          "amount": 141
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 21.5
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 18.3
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 16.3
+        }
+      ]
     },
     "cn": {
       "name": "China",
@@ -32,18 +120,106 @@
       "shareOfTotal": 6.3,
       "topExport": "Soybeans, Semiconductors, Crude Petroleum",
       "topImport": "Computers, Cell Phones, Toys & Games, Electronics",
-      "desc": "Trade with China remains huge but has shifted due to tariff structures and supply chain diversification. The US maintains a significant, though narrowed, trade deficit with China."
+      "desc": "Trade with China remains huge but has shifted due to tariff structures and supply chain diversification. The US maintains a significant, though narrowed, trade deficit with China.",
+      "exportsList": [
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 55.5
+        },
+        {
+          "commodity": "Soybeans, Semiconductors, Crude Petroleum",
+          "amount": 40
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 6.1
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 4.5
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 4.3
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Computers, Cell Phones, Toys & Games, Electronics",
+          "amount": 128
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 92.2
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 9.2
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 7.1
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 5.6
+        }
+      ]
     },
     "tw": {
       "name": "Taiwan",
-      "exports": 60.0,
+      "exports": 60,
       "imports": 274.5,
       "totalTrade": 334.5,
       "tradeBalance": -214.5,
-      "shareOfTotal": 6.0,
+      "shareOfTotal": 6,
       "topExport": "Semiconductor Manufacturing Equipment, Chemicals",
       "topImport": "Advanced Semiconductors, Computer Parts, Telecom Equipment",
-      "desc": "Taiwan is a critical supply chain partner, particularly for advanced microchips. The US imports a massive volume of technology products, leading to a large trade deficit."
+      "desc": "Taiwan is a critical supply chain partner, particularly for advanced microchips. The US imports a massive volume of technology products, leading to a large trade deficit.",
+      "exportsList": [
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 29
+        },
+        {
+          "commodity": "Semiconductor Manufacturing Equipment, Chemicals",
+          "amount": 24.4
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 2.9
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 2.1
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 1.6
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Advanced Semiconductors, Computer Parts, Telecom Equipment",
+          "amount": 140
+        },
+        {
+          "commodity": "Crude Petroleum & Energy Products",
+          "amount": 105.3
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 11.2
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 9.9
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 8.1
+        }
+      ]
     },
     "vn": {
       "name": "Vietnam",
@@ -54,7 +230,51 @@
       "shareOfTotal": 4.4,
       "topExport": "Cotton, Plastics, Machinery, Food Processing",
       "topImport": "Apparel & Footwear, Furniture, Telecommunications",
-      "desc": "Vietnam has grown rapidly as a key electronics and consumer goods manufacturing hub, absorbing significant trade flows as companies diversify away from China."
+      "desc": "Vietnam has grown rapidly as a key electronics and consumer goods manufacturing hub, absorbing significant trade flows as companies diversify away from China.",
+      "exportsList": [
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 8.4
+        },
+        {
+          "commodity": "Cotton, Plastics, Machinery, Food Processing",
+          "amount": 8.1
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 0.9
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 0.7
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 0.5
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Apparel & Footwear, Furniture, Telecommunications",
+          "amount": 116.8
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 91.1
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 8.7
+        },
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 6.3
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 6
+        }
+      ]
     },
     "de": {
       "name": "Germany",
@@ -65,7 +285,51 @@
       "shareOfTotal": 4.1,
       "topExport": "Civil Aircraft & Parts, Pharmaceuticals, Medical Equipment",
       "topImport": "Passenger Cars, Industrial Machinery, Pharmaceuticals",
-      "desc": "Germany is the US's largest European trading partner. Trade centers on advanced manufacturing, machinery, automobiles, and pharmaceutical goods."
+      "desc": "Germany is the US's largest European trading partner. Trade centers on advanced manufacturing, machinery, automobiles, and pharmaceutical goods.",
+      "exportsList": [
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 47.2
+        },
+        {
+          "commodity": "Civil Aircraft & Parts, Pharmaceuticals, Medical Equipment",
+          "amount": 30.9
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 3.5
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 3.1
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 2.9
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Passenger Cars, Industrial Machinery, Pharmaceuticals",
+          "amount": 71.7
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 55.6
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 6.1
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 4.7
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 4.1
+        }
+      ]
     },
     "kr": {
       "name": "South Korea",
@@ -76,18 +340,106 @@
       "shareOfTotal": 4.1,
       "topExport": "Crude Petroleum, Semiconductor Machinery, Aircraft Parts",
       "topImport": "Electric Vehicles, EV Batteries, Semiconductors",
-      "desc": "South Korea is a core technology partner. US imports of Korean automobiles and batteries have surged, supported by the KORUS FTA."
+      "desc": "South Korea is a core technology partner. US imports of Korean automobiles and batteries have surged, supported by the KORUS FTA.",
+      "exportsList": [
+        {
+          "commodity": "Crude Petroleum, Semiconductor Machinery, Aircraft Parts",
+          "amount": 44
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 30.9
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 2.3
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 2.2
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 1.9
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 75.5
+        },
+        {
+          "commodity": "Electric Vehicles, EV Batteries, Semiconductors",
+          "amount": 54
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 8.9
+        },
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 5.3
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 4.8
+        }
+      ]
     },
     "jp": {
       "name": "Japan",
       "exports": 87.6,
-      "imports": 141.0,
+      "imports": 141,
       "totalTrade": 228.6,
       "tradeBalance": -53.4,
       "shareOfTotal": 4.1,
       "topExport": "Liquefied Natural Gas (LNG), Corn, Civil Aircraft",
       "topImport": "Passenger Cars, Auto Parts, Machine Tools, Electronics",
-      "desc": "US-Japan trade is long-standing, focused heavily on automobiles, machinery, and agricultural products. Japan is a major source of foreign direct investment in the US."
+      "desc": "US-Japan trade is long-standing, focused heavily on automobiles, machinery, and agricultural products. Japan is a major source of foreign direct investment in the US.",
+      "exportsList": [
+        {
+          "commodity": "Liquefied Natural Gas (LNG), Corn, Civil Aircraft",
+          "amount": 39.7
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 36.7
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 4.1
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 3.9
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 3.2
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 67.7
+        },
+        {
+          "commodity": "Passenger Cars, Auto Parts, Machine Tools, Electronics",
+          "amount": 52.4
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 7.9
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 7.8
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 5.2
+        }
+      ]
     },
     "gb": {
       "name": "United Kingdom",
@@ -98,139 +450,711 @@
       "shareOfTotal": 3.5,
       "topExport": "Civil Aircraft, Gold, Refined Petroleum, Financial Services",
       "topImport": "Passenger Cars, Pharmaceuticals, Gas Turbines",
-      "desc": "The UK is one of the few major partners with which the US has a significant trade surplus. Trade is characterized by aerospace, premium automobiles, and service sectors."
+      "desc": "The UK is one of the few major partners with which the US has a significant trade surplus. Trade is characterized by aerospace, premium automobiles, and service sectors.",
+      "exportsList": [
+        {
+          "commodity": "Civil Aircraft, Gold, Refined Petroleum, Financial Services",
+          "amount": 67.6
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 51.9
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 5.4
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 4.6
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 3.7
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 28.9
+        },
+        {
+          "commodity": "Passenger Cars, Pharmaceuticals, Gas Turbines",
+          "amount": 27.2
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 3.4
+        },
+        {
+          "commodity": "Crude Petroleum & Energy Products",
+          "amount": 2.4
+        },
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 1.7
+        }
+      ]
     },
     "th": {
       "name": "Thailand",
-      "exports": 24.0,
+      "exports": 24,
       "imports": 131.1,
       "totalTrade": 155.1,
       "tradeBalance": -107.1,
       "shareOfTotal": 2.8,
       "topExport": "Integrated Circuits, Liquefied Petroleum Gas, Gold",
       "topImport": "Computer & HDD Parts, Semiconductors, Rubber Products",
-      "desc": "Thailand is a major supplier of computer hardware (such as hard disks) and semiconductor packaging to the US, creating a large trade deficit."
+      "desc": "Thailand is a major supplier of computer hardware (such as hard disks) and semiconductor packaging to the US, creating a large trade deficit.",
+      "exportsList": [
+        {
+          "commodity": "Integrated Circuits, Liquefied Petroleum Gas, Gold",
+          "amount": 10.9
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 10.4
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 1.2
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 0.9
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 0.6
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 65.6
+        },
+        {
+          "commodity": "Computer & HDD Parts, Semiconductors, Rubber Products",
+          "amount": 50.6
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 5.4
+        },
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 4.9
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 4.6
+        }
+      ]
     },
     "in": {
       "name": "India",
-      "exports": 45.0,
-      "imports": 88.0,
-      "totalTrade": 133.0,
-      "tradeBalance": -43.0,
+      "exports": 45,
+      "imports": 88,
+      "totalTrade": 133,
+      "tradeBalance": -43,
       "shareOfTotal": 2.4,
       "topExport": "Mineral Fuels, Coal, Rough Diamonds, Aviation Equipment",
       "topImport": "Generic Pharmaceuticals, Polished Diamonds, Apparel",
-      "desc": "US-India trade is growing rapidly. India is a key exporter of generic drugs, textiles, and information technology services to the US market."
+      "desc": "US-India trade is growing rapidly. India is a key exporter of generic drugs, textiles, and information technology services to the US market.",
+      "exportsList": [
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 22.9
+        },
+        {
+          "commodity": "Mineral Fuels, Coal, Rough Diamonds, Aviation Equipment",
+          "amount": 16
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 2.1
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 2
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 2
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 42.8
+        },
+        {
+          "commodity": "Generic Pharmaceuticals, Polished Diamonds, Apparel",
+          "amount": 34.2
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 4.6
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 3.8
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 2.6
+        }
+      ]
     },
     "nl": {
       "name": "Netherlands",
-      "exports": 85.0,
-      "imports": 40.0,
-      "totalTrade": 125.0,
-      "tradeBalance": 45.0,
+      "exports": 85,
+      "imports": 40,
+      "totalTrade": 125,
+      "tradeBalance": 45,
       "shareOfTotal": 2.2,
       "topExport": "Crude Petroleum, Medical Instruments, Tech Equipment",
       "topImport": "Refined Petroleum, Specialized Chemicals, Beer",
-      "desc": "The Netherlands acts as the 'Gateway to Europe' due to the Port of Rotterdam. The US maintains a surplus, exporting significant crude oil and machinery."
+      "desc": "The Netherlands acts as the 'Gateway to Europe' due to the Port of Rotterdam. The US maintains a surplus, exporting significant crude oil and machinery.",
+      "exportsList": [
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 38.9
+        },
+        {
+          "commodity": "Crude Petroleum, Medical Instruments, Tech Equipment",
+          "amount": 35.2
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 4.2
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 3.7
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 3
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 17.9
+        },
+        {
+          "commodity": "Refined Petroleum, Specialized Chemicals, Beer",
+          "amount": 16.7
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 2
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 2
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 1.4
+        }
+      ]
     },
     "fr": {
       "name": "France",
-      "exports": 50.0,
-      "imports": 65.0,
-      "totalTrade": 115.0,
-      "tradeBalance": -15.0,
+      "exports": 50,
+      "imports": 65,
+      "totalTrade": 115,
+      "tradeBalance": -15,
       "shareOfTotal": 2.1,
       "topExport": "Aviation Parts & Turbines, Chemicals, Optical Goods",
       "topImport": "Wine & Spirits, Cosmetics, Aircraft, Luxury Goods",
-      "desc": "US-France trade features heavy collaboration in aviation (Boeing/Airbus supply chains) as well as French exports of premium food, wine, and luxury products."
+      "desc": "US-France trade features heavy collaboration in aviation (Boeing/Airbus supply chains) as well as French exports of premium food, wine, and luxury products.",
+      "exportsList": [
+        {
+          "commodity": "Aviation Parts & Turbines, Chemicals, Optical Goods",
+          "amount": 26.2
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 18.5
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 2.2
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 1.7
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 1.4
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 33.5
+        },
+        {
+          "commodity": "Wine & Spirits, Cosmetics, Aircraft, Luxury Goods",
+          "amount": 24.1
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 3.2
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 2.1
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 2.1
+        }
+      ]
     },
     "it": {
       "name": "Italy",
-      "exports": 30.0,
-      "imports": 75.0,
-      "totalTrade": 105.0,
-      "tradeBalance": -45.0,
+      "exports": 30,
+      "imports": 75,
+      "totalTrade": 105,
+      "tradeBalance": -45,
       "shareOfTotal": 1.9,
       "topExport": "Pharmaceutical Ingredients, Aerospace, Coal",
       "topImport": "Industrial Machinery, Pharmaceuticals, Cars, Olive Oil & Wine",
-      "desc": "Italy exports high-end industrial machinery, fashion, and food products to the US, alongside significant pharmaceutical shipments."
+      "desc": "Italy exports high-end industrial machinery, fashion, and food products to the US, alongside significant pharmaceutical shipments.",
+      "exportsList": [
+        {
+          "commodity": "Pharmaceutical Ingredients, Aerospace, Coal",
+          "amount": 15.2
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 12.3
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 0.9
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 0.8
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 0.8
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Industrial Machinery, Pharmaceuticals, Cars, Olive Oil & Wine",
+          "amount": 39.3
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 28
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 2.9
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 2.7
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 2.1
+        }
+      ]
     },
     "ie": {
       "name": "Ireland",
-      "exports": 20.0,
-      "imports": 85.0,
-      "totalTrade": 105.0,
-      "tradeBalance": -65.0,
+      "exports": 20,
+      "imports": 85,
+      "totalTrade": 105,
+      "tradeBalance": -65,
       "shareOfTotal": 1.9,
       "topExport": "Chemicals, Organic Compounds, Computer Software",
       "topImport": "Pharmaceuticals, Immunological Products, Medical Devices",
-      "desc": "Ireland trade is heavily dominated by the pharmaceutical sector. Many US chemical companies export ingredients to Irish subsidiaries which package and re-export finished drugs back to the US."
+      "desc": "Ireland trade is heavily dominated by the pharmaceutical sector. Many US chemical companies export ingredients to Irish subsidiaries which package and re-export finished drugs back to the US.",
+      "exportsList": [
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 9.3
+        },
+        {
+          "commodity": "Chemicals, Organic Compounds, Computer Software",
+          "amount": 8.5
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 1
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 0.7
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 0.5
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Crude Petroleum & Energy Products",
+          "amount": 42
+        },
+        {
+          "commodity": "Pharmaceuticals, Immunological Products, Medical Devices",
+          "amount": 31.3
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 4.7
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 4.3
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 2.7
+        }
+      ]
     },
     "br": {
       "name": "Brazil",
-      "exports": 55.0,
-      "imports": 42.0,
-      "totalTrade": 97.0,
-      "tradeBalance": 13.0,
+      "exports": 55,
+      "imports": 42,
+      "totalTrade": 97,
+      "tradeBalance": 13,
       "shareOfTotal": 1.7,
       "topExport": "Refined Petroleum, Coal, Specialized Chemicals",
       "topImport": "Crude Oil, Semi-Finished Iron & Steel, Coffee, Aircraft",
-      "desc": "Brazil is the US's main trading partner in South America. The US has a trade surplus, exporting energy products and manufacturing goods while importing raw materials."
+      "desc": "Brazil is the US's main trading partner in South America. The US has a trade surplus, exporting energy products and manufacturing goods while importing raw materials.",
+      "exportsList": [
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 25.7
+        },
+        {
+          "commodity": "Refined Petroleum, Coal, Specialized Chemicals",
+          "amount": 20.5
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 3.1
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 3
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 2.7
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Crude Oil, Semi-Finished Iron & Steel, Coffee, Aircraft",
+          "amount": 20.6
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 16.7
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 1.9
+        },
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 1.8
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 1
+        }
+      ]
     },
     "ch": {
       "name": "Switzerland",
-      "exports": 35.0,
-      "imports": 55.0,
-      "totalTrade": 90.0,
-      "tradeBalance": -20.0,
+      "exports": 35,
+      "imports": 55,
+      "totalTrade": 90,
+      "tradeBalance": -20,
       "shareOfTotal": 1.6,
       "topExport": "Gold (non-monetary), Artwork, Civil Aircraft",
       "topImport": "Pharmaceuticals, Watches, Medical Devices",
-      "desc": "Switzerland trade is characterized by high-value goods like gold refitting, pharmaceuticals, and luxury watches, resulting in a moderate US deficit."
+      "desc": "Switzerland trade is characterized by high-value goods like gold refitting, pharmaceuticals, and luxury watches, resulting in a moderate US deficit.",
+      "exportsList": [
+        {
+          "commodity": "Gold (non-monetary), Artwork, Civil Aircraft",
+          "amount": 17.9
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 14
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 1.2
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 1
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 0.9
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 27.4
+        },
+        {
+          "commodity": "Pharmaceuticals, Watches, Medical Devices",
+          "amount": 20.4
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 3.1
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 2.6
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 1.5
+        }
+      ]
     },
     "sg": {
       "name": "Singapore",
-      "exports": 48.0,
-      "imports": 32.0,
-      "totalTrade": 80.0,
-      "tradeBalance": 16.0,
+      "exports": 48,
+      "imports": 32,
+      "totalTrade": 80,
+      "tradeBalance": 16,
       "shareOfTotal": 1.4,
       "topExport": "Aviation Turbines, Electronic Circuits, Petroleum Products",
       "topImport": "Medical Diagnostic Instruments, Specialized Chemicals",
-      "desc": "Singapore is a key financial and logistics hub in Asia. The US runs a trade surplus here, supported by the US-Singapore Free Trade Agreement."
+      "desc": "Singapore is a key financial and logistics hub in Asia. The US runs a trade surplus here, supported by the US-Singapore Free Trade Agreement.",
+      "exportsList": [
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 24.3
+        },
+        {
+          "commodity": "Aviation Turbines, Electronic Circuits, Petroleum Products",
+          "amount": 17
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 2.7
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 2.7
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 1.3
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Medical Diagnostic Instruments, Specialized Chemicals",
+          "amount": 16.5
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 12.7
+        },
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 1
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 1
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 0.8
+        }
+      ]
     },
     "au": {
       "name": "Australia",
-      "exports": 35.0,
-      "imports": 18.0,
-      "totalTrade": 53.0,
-      "tradeBalance": 17.0,
+      "exports": 35,
+      "imports": 18,
+      "totalTrade": 53,
+      "tradeBalance": 17,
       "shareOfTotal": 0.9,
       "topExport": "Passenger Vehicles, Machinery, Medical Goods",
       "topImport": "Beef & Meat, Gold, Alumina & Minerals",
-      "desc": "Australia trade is supported by a free trade agreement. The US exports finished machinery and vehicles and imports agricultural products and minerals."
+      "desc": "Australia trade is supported by a free trade agreement. The US exports finished machinery and vehicles and imports agricultural products and minerals.",
+      "exportsList": [
+        {
+          "commodity": "Passenger Vehicles, Machinery, Medical Goods",
+          "amount": 16.5
+        },
+        {
+          "commodity": "Transportation Equipment & Aircraft",
+          "amount": 14.3
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 1.6
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 1.4
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 1.2
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Transportation Equipment (Vehicles/Parts)",
+          "amount": 8.7
+        },
+        {
+          "commodity": "Beef & Meat, Gold, Alumina & Minerals",
+          "amount": 7.2
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 0.8
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 0.7
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 0.6
+        }
+      ]
     },
     "sa": {
       "name": "Saudi Arabia",
-      "exports": 16.0,
-      "imports": 20.0,
-      "totalTrade": 36.0,
-      "tradeBalance": -4.0,
+      "exports": 16,
+      "imports": 20,
+      "totalTrade": 36,
+      "tradeBalance": -4,
       "shareOfTotal": 0.6,
       "topExport": "Defense Equipment, Aircraft & Parts, Automobiles",
       "topImport": "Crude Petroleum, Organic Chemicals",
-      "desc": "Saudi Arabia is a key oil supplier. US exports are dominated by machinery, passenger cars, and defense/aerospace products."
+      "desc": "Saudi Arabia is a key oil supplier. US exports are dominated by machinery, passenger cars, and defense/aerospace products.",
+      "exportsList": [
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 8.2
+        },
+        {
+          "commodity": "Defense Equipment, Aircraft & Parts, Automobiles",
+          "amount": 6.1
+        },
+        {
+          "commodity": "Mineral Fuels & Petroleum",
+          "amount": 0.7
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 0.5
+        },
+        {
+          "commodity": "Scientific & Optical Instruments",
+          "amount": 0.5
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Crude Petroleum, Organic Chemicals",
+          "amount": 10.6
+        },
+        {
+          "commodity": "Crude Petroleum & Energy Products",
+          "amount": 7.2
+        },
+        {
+          "commodity": "Chemicals, Plastics & Pharmaceuticals",
+          "amount": 0.8
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 0.7
+        },
+        {
+          "commodity": "Agricultural, Food & Beverage Products",
+          "amount": 0.7
+        }
+      ]
     },
     "za": {
       "name": "South Africa",
-      "exports": 8.0,
-      "imports": 14.0,
-      "totalTrade": 22.0,
-      "tradeBalance": -6.0,
+      "exports": 8,
+      "imports": 14,
+      "totalTrade": 22,
+      "tradeBalance": -6,
       "shareOfTotal": 0.4,
       "topExport": "Machinery, Electrical Equipment, Vehicles",
       "topImport": "Platinum & Noble Metals, Passenger Cars, Iron & Steel",
-      "desc": "South Africa is the US's primary trading partner on the African continent, supplying critical platinum and minerals alongside automotive components."
+      "desc": "South Africa is the US's primary trading partner on the African continent, supplying critical platinum and minerals alongside automotive components.",
+      "exportsList": [
+        {
+          "commodity": "Machinery, Electrical Equipment, Vehicles",
+          "amount": 3.6
+        },
+        {
+          "commodity": "Agricultural & Food Products",
+          "amount": 3.6
+        },
+        {
+          "commodity": "Machinery & Electrical Machinery",
+          "amount": 0.4
+        },
+        {
+          "commodity": "Chemicals & Plastics",
+          "amount": 0.2
+        },
+        {
+          "commodity": "Computers & Electronics",
+          "amount": 0.2
+        }
+      ],
+      "importsList": [
+        {
+          "commodity": "Platinum & Noble Metals, Passenger Cars, Iron & Steel",
+          "amount": 7.1
+        },
+        {
+          "commodity": "Other Manufactured Goods",
+          "amount": 5.6
+        },
+        {
+          "commodity": "Computers & Electronic Products",
+          "amount": 0.5
+        },
+        {
+          "commodity": "Machinery & Electrical Equipment",
+          "amount": 0.4
+        },
+        {
+          "commodity": "Textiles, Apparel & Footwear",
+          "amount": 0.4
+        }
+      ]
     }
   }
 }
