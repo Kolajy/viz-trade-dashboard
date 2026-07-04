@@ -5,3 +5,10 @@ yarn-debug.log*
 yarn-error.log*
 .vercel
 *.log
+
+# Generated JSON Assets
+dashboard-config.json
+data.json
+globalTradeData.json
+tradeData.json
+usa-map-dimensions.json

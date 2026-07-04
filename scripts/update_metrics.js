@@ -5,20 +5,22 @@ const path = require('path');
 
 const DB_PATH = path.join(__dirname, '../data.db');
 
-function fetchJson(url) {
+function fetchText(url) {
   return new Promise((resolve, reject) => {
     https.get(url, { headers: { 'User-Agent': 'NodeJS/MacroScope' } }, (res) => {
+      if (res.statusCode >= 400) {
+        reject(new Error(`HTTP Error: ${res.statusCode} for ${url}`));
+        return;
+      }
       let data = '';
       res.on('data', (chunk) => data += chunk);
-      res.on('end', () => {
-        try {
-          resolve(JSON.parse(data));
-        } catch (e) {
-          reject(e);
-        }
-      });
+      res.on('end', () => resolve(data));
     }).on('error', (err) => reject(err));
   });
+}
+
+function fetchJson(url) {
+  return fetchText(url).then(text => JSON.parse(text));
 }
 
 function openDatabase() {
@@ -48,169 +50,95 @@ function allQuery(db, sql, params = []) {
   });
 }
 
-async function initDatabase(db) {
-  // Create tables
-  await runQuery(db, `
-    CREATE TABLE IF NOT EXISTS metrics (
-      category TEXT,
-      key TEXT PRIMARY KEY,
-      value TEXT,
-      period TEXT,
-      tag TEXT,
-      bar TEXT,
-      trend TEXT
-    )
-  `);
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function formatDate(dateStr, isQuarterly = false) {
+  if (!dateStr) return '—';
+  const parts = dateStr.split('-');
+  if (parts.length < 2) return dateStr;
+  const year = parts[0];
+  const monthIdx = parseInt(parts[1]) - 1;
+  if (isQuarterly) {
+    const q = Math.floor(monthIdx / 3) + 1;
+    return `Q${q} ${year}`;
+  }
+  return `${monthNames[monthIdx]} ${year}`;
+}
 
-  await runQuery(db, `
-    CREATE TABLE IF NOT EXISTS treasury_yields (
-      maturity TEXT PRIMARY KEY,
-      yield REAL,
-      yield_1m_ago REAL,
-      yield_1y_ago REAL
-    )
-  `);
-
-  await runQuery(db, `
-    CREATE TABLE IF NOT EXISTS central_banks (
-      bank_id TEXT PRIMARY KEY,
-      name TEXT,
-      region TEXT,
-      rate REAL,
-      rate_label TEXT,
-      inflation REAL,
-      balance_sheet REAL,
-      stance TEXT,
-      stance_class TEXT,
-      bias TEXT,
-      next_meeting TEXT
-    )
-  `);
-
-  await runQuery(db, `
-    CREATE TABLE IF NOT EXISTS fed_health (
-      key TEXT PRIMARY KEY,
-      value REAL,
-      peak REAL,
-      change_1y REAL,
-      qt_pacing TEXT,
-      last_updated TEXT
-    )
-  `);
-
-  // Check if metrics table is empty, if so, seed from data.json
-  const rows = await allQuery(db, 'SELECT count(*) as count FROM metrics');
-  if (rows[0].count === 0) {
-    console.log('Database empty. Seeding from existing data.json...');
-    const localDataPath = path.join(__dirname, '../data.json');
-    if (fs.existsSync(localDataPath)) {
-      const initialData = JSON.parse(fs.readFileSync(localDataPath, 'utf8'));
-
-      // Seed standard metrics (market, macro, inflation)
-      const categories = ['market', 'macro', 'inflation'];
-      for (const cat of categories) {
-        if (initialData[cat]) {
-          const keys = Object.keys(initialData[cat]);
-          const baseKeys = Array.from(new Set(keys.map(k => k.split('_')[0])));
-          for (const base of baseKeys) {
-            const value = initialData[cat][base] !== undefined ? String(initialData[cat][base]) : null;
-            const period = initialData[cat][`${base}_period`] || initialData[cat][`${base}_meta`] || null;
-            const tag = initialData[cat][`${base}_tag`] || null;
-            const bar = initialData[cat][`${base}_bar`] || initialData[cat][`${base}_pos`] || null;
-            const trend = initialData[cat][`${base}_trend`] || null;
-            
-            if (value !== null) {
-              await runQuery(db, `
-                INSERT OR REPLACE INTO metrics (category, key, value, period, tag, bar, trend)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-              `, [cat, base, value, period, tag, bar, trend]);
-            }
-          }
-          
-          const extras = ['earnings_yield', 'equity_risk_premium', 'yield_spread', 'fed_funds', 'fed_decision', 'fed_balance_sheet'];
-          for (const ext of extras) {
-            if (initialData[cat][ext] !== undefined) {
-              const value = String(initialData[cat][ext]);
-              const trend = initialData[cat][`${ext}_trend`] || null;
-              await runQuery(db, `
-                INSERT OR REPLACE INTO metrics (category, key, value, trend)
-                VALUES (?, ?, ?, ?)
-              `, [cat, ext, value, trend]);
-            }
-          }
-        }
-      }
-
-      // Seed treasury yields
-      if (initialData.treasury && initialData.treasury.yields) {
-        const maturities = Object.keys(initialData.treasury.yields);
-        for (const mat of maturities) {
-          const y = initialData.treasury.yields[mat];
-          const y1m = initialData.treasury.yields1MonthAgo ? initialData.treasury.yields1MonthAgo[mat] : null;
-          const y1y = initialData.treasury.yields1YearAgo ? initialData.treasury.yields1YearAgo[mat] : null;
-          await runQuery(db, `
-            INSERT OR REPLACE INTO treasury_yields (maturity, yield, yield_1m_ago, yield_1y_ago)
-            VALUES (?, ?, ?, ?)
-          `, [mat, y, y1m, y1y]);
-        }
-        await runQuery(db, `
-          INSERT OR REPLACE INTO metrics (category, key, value)
-          VALUES ('treasury', 'spread2y10y', ?)
-        `, [String(initialData.treasury.spread2y10y)]);
-        await runQuery(db, `
-          INSERT OR REPLACE INTO metrics (category, key, value)
-          VALUES ('treasury', 'spread3m10y', ?)
-        `, [String(initialData.treasury.spread3m10y)]);
-      }
-
-      // Seed fedHealth
-      if (initialData.fedHealth) {
-        const fh = initialData.fedHealth;
-        await runQuery(db, `
-          INSERT OR REPLACE INTO fed_health (key, value, peak, change_1y, qt_pacing, last_updated)
-          VALUES ('fed_assets', ?, ?, ?, ?, ?)
-        `, [fh.totalAssets, fh.peakAssets, fh.change1y, fh.qtPacing, fh.lastUpdated]);
-
-        const fhKeys = ['treasuryHoldings', 'mbsHoldings', 'otherHoldings', 'bankReserves', 'reverseRepo', 'tga', 'currencyInCirculation', 'otherLiabilities', 'ioerRate'];
-        for (const k of fhKeys) {
-          if (fh[k] !== undefined) {
-            await runQuery(db, `
-              INSERT OR REPLACE INTO metrics (category, key, value)
-              VALUES ('fedHealth', ?, ?)
-            `, [k, String(fh[k])]);
-          }
-        }
-      }
-
-      // Seed central banks
-      if (initialData.centralBanks && initialData.centralBanks.banks) {
-        const banks = Object.keys(initialData.centralBanks.banks);
-        for (const bid of banks) {
-          const b = initialData.centralBanks.banks[bid];
-          await runQuery(db, `
-            INSERT OR REPLACE INTO central_banks (bank_id, name, region, rate, rate_label, inflation, balance_sheet, stance, stance_class, bias, next_meeting)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-          `, [bid, b.name, b.region, b.rate, b.rateLabel, b.inflation, b.balanceSheet, b.stance, b.stanceClass, b.bias, b.nextMeeting]);
+function fetchFredCsv(symbol) {
+  const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${symbol}`;
+  return fetchText(url).then(csv => {
+    const lines = csv.trim().split('\n');
+    const data = [];
+    for (let i = 1; i < lines.length; i++) {
+      const parts = lines[i].split(',');
+      if (parts.length === 2) {
+        const date = parts[0];
+        const val = parseFloat(parts[1]);
+        if (!isNaN(val)) {
+          data.push({ date, val });
         }
       }
     }
+    return data;
+  });
+}
+
+function parseTreasuryXml(xml) {
+  const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
+  let match;
+  let latestEntry = null;
+  let latestDate = '';
+  
+  while ((match = entryRegex.exec(xml)) !== null) {
+    const entryContent = match[1];
+    const dateMatch = entryContent.match(/<d:NEW_DATE[^>]*>([^<]+)<\/d:NEW_DATE>/);
+    if (dateMatch) {
+      const date = dateMatch[1].split('T')[0];
+      if (date > latestDate) {
+        latestDate = date;
+        latestEntry = entryContent;
+      }
+    }
   }
+  
+  if (!latestEntry) return null;
+  
+  const maturitiesMap = {
+    '1M': 'BC_1MONTH',
+    '3M': 'BC_3MONTH',
+    '6M': 'BC_6MONTH',
+    '1Y': 'BC_1YEAR',
+    '2Y': 'BC_2YEAR',
+    '3Y': 'BC_3YEAR',
+    '5Y': 'BC_5YEAR',
+    '7Y': 'BC_7YEAR',
+    '10Y': 'BC_10YEAR',
+    '20Y': 'BC_20YEAR',
+    '30Y': 'BC_30YEAR'
+  };
+  
+  const yields = {};
+  for (const [key, xmlTag] of Object.entries(maturitiesMap)) {
+    const rateMatch = latestEntry.match(new RegExp(`<d:${xmlTag}[^>]*>([\\d.]+)<\\/d:${xmlTag}>`));
+    if (rateMatch) {
+      yields[key] = parseFloat(rateMatch[1]);
+    }
+  }
+  
+  return { date: latestDate, yields };
 }
 
 async function exportAllJson(db) {
-  // 1. Export dashboard-config.json
   const configRow = await allQuery(db, "SELECT value FROM configs WHERE key = 'dashboard_config'");
   if (configRow.length > 0) {
     fs.writeFileSync(path.join(__dirname, '../dashboard-config.json'), configRow[0].value);
   }
 
-  // 2. Export usa-map-dimensions.json
   const mapRow = await allQuery(db, "SELECT value FROM configs WHERE key = 'usa_map_dimensions'");
   if (mapRow.length > 0) {
     fs.writeFileSync(path.join(__dirname, '../usa-map-dimensions.json'), mapRow[0].value);
   }
 
-  // 3. Export data.json
   const data = {
     lastUpdated: new Date().toISOString(),
     market: {},
@@ -248,20 +176,6 @@ async function exportAllJson(db) {
         }
       }
       if (m.tag) data[m.category][`${m.key}_tag`] = m.tag;
-      if (m.bar) {
-        if (m.key === 'ism_pmi') {
-          data[m.category]['pmi_pos'] = m.bar;
-        } else if (m.key === 'services_pmi') {
-          data[m.category]['services_pmi_pos'] = m.bar;
-        } else {
-          data[m.category][`${m.key}_bar`] = m.bar;
-        }
-      }
-      if (m.trend) data[m.category][`${m.key}_trend`] = m.trend;
-    } else if (m.category === 'treasury') {
-      data.treasury[m.key] = parseFloat(m.value);
-    } else if (m.category === 'fedHealth') {
-      data.fedHealth[m.key] = parseFloat(m.value);
     }
   }
 
@@ -272,6 +186,11 @@ async function exportAllJson(db) {
     data.treasury.yields1YearAgo[y.maturity] = y.yield_1y_ago;
   }
 
+  const spreads = await allQuery(db, "SELECT key, value FROM metrics WHERE category = 'treasury'");
+  for (const s of spreads) {
+    data.treasury[s.key] = parseFloat(s.value);
+  }
+
   const fhRow = await allQuery(db, "SELECT * FROM fed_health WHERE key = 'fed_assets'");
   if (fhRow.length > 0) {
     const r = fhRow[0];
@@ -280,6 +199,11 @@ async function exportAllJson(db) {
     data.fedHealth.change1y = r.change_1y;
     data.fedHealth.qtPacing = r.qt_pacing;
     data.fedHealth.lastUpdated = r.last_updated;
+  }
+
+  const fhMetrics = await allQuery(db, "SELECT key, value FROM metrics WHERE category = 'fedHealth'");
+  for (const fm of fhMetrics) {
+    data.fedHealth[fm.key] = parseFloat(fm.value);
   }
 
   const banks = await allQuery(db, 'SELECT * FROM central_banks');
@@ -297,9 +221,9 @@ async function exportAllJson(db) {
       nextMeeting: b.next_meeting
     };
   }
+
   fs.writeFileSync(path.join(__dirname, '../data.json'), JSON.stringify(data, null, 2));
 
-  // 4. Export tradeData.json
   const tradeMetaRow = await allQuery(db, "SELECT value FROM configs WHERE key = 'trade_data_metadata'");
   const tradeMeta = tradeMetaRow.length > 0 ? JSON.parse(tradeMetaRow[0].value) : { lastUpdated: new Date().toISOString(), source: '' };
   
@@ -336,7 +260,6 @@ async function exportAllJson(db) {
   }
   fs.writeFileSync(path.join(__dirname, '../tradeData.json'), JSON.stringify(tradeData, null, 2));
 
-  // 5. Export globalTradeData.json
   const globalMetaRow = await allQuery(db, "SELECT value FROM configs WHERE key = 'global_trade_data_metadata'");
   const globalMeta = globalMetaRow.length > 0 ? JSON.parse(globalMetaRow[0].value) : { lastUpdated: new Date().toISOString(), source: '' };
 
@@ -382,10 +305,7 @@ async function updateMetrics() {
   const db = await openDatabase();
 
   try {
-    console.log('Initializing database schema and seeding if necessary...');
-    await initDatabase(db);
-
-    console.log('Fetching latest market data from external APIs...');
+    console.log('1. Fetching latest market data from Yahoo Finance...');
     const updates = {};
 
     try {
@@ -442,16 +362,12 @@ async function updateMetrics() {
       console.warn('WTI Crude fetch fallback:', e.message);
     }
 
-    // Apply updates to database
+    // Apply Yahoo updates to database
     if (updates.sp500) {
-      await runQuery(db, "UPDATE metrics SET value = ?, trend = ?, period = 'Jun 26 close' WHERE key = 'sp500'", [String(updates.sp500), updates.sp500_trend]);
+      await runQuery(db, "UPDATE metrics SET value = ?, trend = ?, period = ? WHERE key = 'sp500'", [String(updates.sp500), updates.sp500_trend, formatDate(new Date().toISOString().split('T')[0])]);
     }
     if (updates.vix) {
       await runQuery(db, "UPDATE metrics SET value = ?, trend = ? WHERE key = 'vix'", [String(updates.vix), updates.vix_trend]);
-    }
-    if (updates.treasury10y) {
-      await runQuery(db, "UPDATE metrics SET value = ? WHERE key = 'treasury10y'", [String(updates.treasury10y)]);
-      await runQuery(db, "INSERT OR REPLACE INTO treasury_yields (maturity, yield, yield_1m_ago, yield_1y_ago) VALUES ('10Y', ?, (SELECT yield_1m_ago FROM treasury_yields WHERE maturity = '10Y'), (SELECT yield_1y_ago FROM treasury_yields WHERE maturity = '10Y'))", [updates.treasury10y]);
     }
     if (updates.gold) {
       await runQuery(db, "UPDATE metrics SET value = ?, trend = ? WHERE key = 'gold'", [String(updates.gold), updates.gold_trend]);
@@ -460,7 +376,94 @@ async function updateMetrics() {
       await runQuery(db, "UPDATE metrics SET value = ?, trend = ? WHERE key = 'oil'", [String(updates.oil), updates.oil_trend]);
     }
 
-    // Dynamic calculations: ERP (Equity Risk Premium)
+    console.log('2. Fetching daily treasury yield curve from official XML feed...');
+    try {
+      const currentYear = new Date().getFullYear();
+      let xml = await fetchText(`https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=${currentYear}`);
+      let parsed = parseTreasuryXml(xml);
+      
+      // Fallback to previous year if current year XML is empty
+      if (!parsed) {
+        xml = await fetchText(`https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=${currentYear - 1}`);
+        parsed = parseTreasuryXml(xml);
+      }
+
+      if (parsed) {
+        const dateStr = formatDate(parsed.date);
+        for (const [mat, val] of Object.entries(parsed.yields)) {
+          // Update yield rate. Preserve previous 1m/1y values.
+          await runQuery(db, `
+            INSERT INTO treasury_yields (maturity, yield, yield_1m_ago, yield_1y_ago) 
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(maturity) DO UPDATE SET yield = excluded.yield
+          `, [mat, val, val, val]);
+        }
+        console.log(`Successfully updated Treasury yields from official feed (Date: ${parsed.date})`);
+        
+        // Populate 10y yield from XML if Yahoo TNX missed
+        if (!updates.treasury10y && parsed.yields['10Y']) {
+          updates.treasury10y = parsed.yields['10Y'];
+        }
+      }
+    } catch (e) {
+      console.warn('Treasury yields XML fetch failed:', e.message);
+    }
+
+    if (updates.treasury10y) {
+      await runQuery(db, "UPDATE metrics SET value = ? WHERE key = 'treasury10y'", [String(updates.treasury10y)]);
+      await runQuery(db, "UPDATE treasury_yields SET yield = ? WHERE maturity = '10Y'", [updates.treasury10y]);
+    }
+
+    console.log('3. Fetching macro indicators from FRED database...');
+    const fredIndicators = [
+      { key: 'unemployment', category: 'macro', symbol: 'UNRATE', type: 'latest' },
+      { key: 'cpi', category: 'inflation', symbol: 'CPIAUCSL', type: 'yoy', offset: 12 },
+      { key: 'pce', category: 'inflation', symbol: 'PCEPI', type: 'yoy', offset: 12 },
+      { key: 'core_pce', category: 'inflation', symbol: 'PCEPILFE', type: 'yoy', offset: 12 },
+      { key: 'gdp', category: 'macro', symbol: 'GDPC1', type: 'yoy', offset: 4, quarterly: true },
+      { key: 'jolts', category: 'macro', symbol: 'JTSJOL', type: 'latest_divide_1000' },
+      { key: 'case_shiller', category: 'macro', symbol: 'CSUSHPISA', type: 'yoy', offset: 12 },
+      { key: 'savings_rate', category: 'macro', symbol: 'PSAVERT', type: 'latest' },
+      { key: 'delinquency_rate', category: 'macro', symbol: 'DRCCLACBS', type: 'latest', quarterly: true },
+      { key: 'm2_growth', category: 'macro', symbol: 'M2SL', type: 'yoy', offset: 12 }
+    ];
+
+    for (const ind of fredIndicators) {
+      try {
+        const data = await fetchFredCsv(ind.symbol);
+        if (data.length > 0) {
+          const latest = data[data.length - 1];
+          let value = 0;
+          
+          if (ind.type === 'latest') {
+            value = latest.val;
+          } else if (ind.type === 'latest_divide_1000') {
+            value = latest.val / 1000;
+          } else if (ind.type === 'yoy') {
+            const offset = ind.offset || 12;
+            if (data.length > offset) {
+              const prior = data[data.length - 1 - offset];
+              value = ((latest.val - prior.val) / prior.val) * 100;
+            }
+          }
+          
+          const formattedVal = (value >= 0 && ind.key === 'case_shiller' ? '+' : '') + value.toFixed(2);
+          const formattedPeriod = formatDate(latest.date, ind.quarterly);
+          
+          await runQuery(db, `
+            UPDATE metrics 
+            SET value = ?, period = ? 
+            WHERE key = ? AND category = ?
+          `, [formattedVal, formattedPeriod, ind.key, ind.category]);
+          
+          console.log(`Updated metric ${ind.key}: ${formattedVal} (${formattedPeriod})`);
+        }
+      } catch (e) {
+        console.warn(`Failed to update FRED indicator ${ind.key}:`, e.message);
+      }
+    }
+
+    console.log('4. Performing dynamic spreadsheet-like calculations...');
     const peRow = await allQuery(db, "SELECT value FROM metrics WHERE key = 'sp500_pe'");
     const y10yRow = await allQuery(db, "SELECT value FROM metrics WHERE key = 'treasury10y'");
     
@@ -475,7 +478,6 @@ async function updateMetrics() {
       await runQuery(db, "UPDATE metrics SET value = ?, trend = ? WHERE key = 'equity_risk_premium'", [String(erp), erpTrend]);
     }
 
-    // Calculate spreads
     const y2yRow = await allQuery(db, "SELECT yield FROM treasury_yields WHERE maturity = '2Y'");
     const y3mRow = await allQuery(db, "SELECT yield FROM treasury_yields WHERE maturity = '3M'");
     if (y10yRow.length > 0) {
@@ -491,12 +493,10 @@ async function updateMetrics() {
       }
     }
 
-    // The client reads directly from the SQLite data.db via WebAssembly, 
-    // so we no longer need to write these static JSON files.
-    // console.log('Exporting all database snapshots to static JSON files...');
-    // await exportAllJson(db);
+    console.log('5. Rebuilding static JSON assets from database...');
+    await exportAllJson(db);
 
-    console.log('Database updated successfully.');
+    console.log('Database and JSON files updated successfully.');
   } finally {
     db.close();
   }
