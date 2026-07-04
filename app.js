@@ -73,8 +73,8 @@ window.fetch = async function(url, options) {
   if (normalizedUrl === 'nowcastData.json') {
     const components = query('SELECT * FROM nowcast_components');
     const releases = query('SELECT * FROM nowcast_releases ORDER BY id DESC');
-    const baseline = query(\"SELECT value FROM metrics WHERE key = 'gdp_nowcast_baseline'\");
-    const current = query(\"SELECT value FROM metrics WHERE key = 'gdp_nowcast'\");
+    const baseline = query("SELECT value FROM metrics WHERE key = 'gdp_nowcast_baseline'");
+    const current = query("SELECT value FROM metrics WHERE key = 'gdp_nowcast'");
     return new Response(JSON.stringify({
       components,
       releases,
