@@ -478,6 +478,16 @@ function updateGlobalRankingsList() {
 
   sorted.forEach((item, idx) => {
     const li = document.createElement('li');
+    li.style.flexDirection = 'column';
+    li.style.alignItems = 'stretch';
+    li.style.gap = '6px';
+    li.style.padding = '8px 0';
+    li.style.borderBottom = '1px solid rgba(255, 255, 255, 0.03)';
+
+    const rowDiv = document.createElement('div');
+    rowDiv.style.display = 'flex';
+    rowDiv.style.justifyContent = 'space-between';
+    rowDiv.style.alignItems = 'center';
 
     const leftDiv = document.createElement('div');
     leftDiv.className = 'rank-item-left';
@@ -501,17 +511,55 @@ function updateGlobalRankingsList() {
     
     // Use the database's overall share_of_total for total trade, or compute relative share for exports/imports
     let pctDisplay = '';
+    let pctVal = 0;
     if (currentGlobalRankMode === 'total') {
-      pctDisplay = `${item.share.toFixed(1)}%`;
+      pctVal = item.share;
+      pctDisplay = `${pctVal.toFixed(1)}%`;
     } else {
-      const computedPct = totalSum > 0 ? (item.val / totalSum) * 100 : 0;
-      pctDisplay = `${computedPct.toFixed(1)}%`;
+      pctVal = totalSum > 0 ? (item.val / totalSum) * 100 : 0;
+      pctDisplay = `${pctVal.toFixed(1)}%`;
     }
     
     valSpan.textContent = `$${item.val.toFixed(1)}B (${pctDisplay})`;
 
-    li.appendChild(leftDiv);
-    li.appendChild(valSpan);
+    rowDiv.appendChild(leftDiv);
+    rowDiv.appendChild(valSpan);
+    li.appendChild(rowDiv);
+
+    // Horizontal visual bar represent percentage
+    const barBg = document.createElement('div');
+    barBg.className = 'rank-bar-bg';
+    barBg.style.width = '100%';
+    barBg.style.height = '6px';
+    barBg.style.background = 'rgba(255, 255, 255, 0.05)';
+    barBg.style.borderRadius = '3px';
+    barBg.style.overflow = 'hidden';
+    barBg.style.marginTop = '2px';
+
+    const bar = document.createElement('div');
+    bar.className = 'rank-bar';
+    
+    let barColor = '#4e73df'; // Blue for total
+    if (currentGlobalRankMode === 'exports') {
+      barColor = 'var(--color-up)'; // Green
+    } else if (currentGlobalRankMode === 'imports') {
+      barColor = '#8c52ff'; // Purple
+    }
+    
+    // Normalize bar width to make it visually descriptive.
+    // If the maximum percentage in the top 5 is e.g. 17%, we can scale the width relative to the maximum of the sorted list
+    const maxPct = currentGlobalRankMode === 'total' ? 20 : 35; // Standardize scale maximum
+    const barWidth = Math.min((pctVal / maxPct) * 100, 100);
+
+    bar.style.width = `${barWidth}%`;
+    bar.style.height = '100%';
+    bar.style.background = barColor;
+    bar.style.borderRadius = '3px';
+    bar.style.transition = 'width 0.4s ease';
+
+    barBg.appendChild(bar);
+    li.appendChild(barBg);
+
     rankingsList.appendChild(li);
   });
 }
