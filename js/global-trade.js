@@ -460,11 +460,21 @@ function updateGlobalRankingsList() {
       return {
         code,
         name: p.name,
-        val
+        val,
+        share: p.shareOfTotal
       };
     })
     .sort((a, b) => b.val - a.val)
     .slice(0, 5);
+
+  // Calculate sum of the selected mode across all partners in the dataset
+  const totalSum = Object.keys(globalTradeData.partners).reduce((acc, code) => {
+    const p = globalTradeData.partners[code];
+    let val = p.totalTrade;
+    if (currentGlobalRankMode === 'exports') val = p.exports;
+    if (currentGlobalRankMode === 'imports') val = p.imports;
+    return acc + val;
+  }, 0);
 
   sorted.forEach((item, idx) => {
     const li = document.createElement('li');
@@ -488,7 +498,17 @@ function updateGlobalRankingsList() {
 
     const valSpan = document.createElement('span');
     valSpan.className = `rank-val type--${currentGlobalRankMode}`;
-    valSpan.textContent = `$${item.val.toFixed(1)}B`;
+    
+    // Use the database's overall share_of_total for total trade, or compute relative share for exports/imports
+    let pctDisplay = '';
+    if (currentGlobalRankMode === 'total') {
+      pctDisplay = `${item.share.toFixed(1)}%`;
+    } else {
+      const computedPct = totalSum > 0 ? (item.val / totalSum) * 100 : 0;
+      pctDisplay = `${computedPct.toFixed(1)}%`;
+    }
+    
+    valSpan.textContent = `$${item.val.toFixed(1)}B (${pctDisplay})`;
 
     li.appendChild(leftDiv);
     li.appendChild(valSpan);
