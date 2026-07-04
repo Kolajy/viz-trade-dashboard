@@ -308,9 +308,25 @@ function updateRankingsList() {
     .sort((a, b) => b.val - a.val)
     .slice(0, 5);
 
+  const totalSum = Object.keys(tradeData.states).reduce((acc, abbr) => {
+    const s = tradeData.states[abbr];
+    const val = currentRankMode === 'exports' ? s.exportsTotal : s.importsTotal;
+    return acc + val;
+  }, 0);
+
   sorted.forEach((item, idx) => {
     const li = document.createElement('li');
+    li.style.flexDirection = 'column';
+    li.style.alignItems = 'stretch';
+    li.style.gap = '6px';
+    li.style.padding = '8px 0';
+    li.style.borderBottom = '1px solid rgba(255, 255, 255, 0.03)';
     
+    const rowDiv = document.createElement('div');
+    rowDiv.style.display = 'flex';
+    rowDiv.style.justifyContent = 'space-between';
+    rowDiv.style.alignItems = 'center';
+
     const leftDiv = document.createElement('div');
     leftDiv.className = 'rank-item-left';
     
@@ -330,10 +346,44 @@ function updateRankingsList() {
 
     const valSpan = document.createElement('span');
     valSpan.className = `rank-val type--${currentRankMode}`;
-    valSpan.textContent = `$${item.val.toFixed(1)}B`;
+    
+    const pct = totalSum > 0 ? (item.val / totalSum) * 100 : 0;
+    valSpan.textContent = `$${item.val.toFixed(1)}B (${pct.toFixed(1)}%)`;
 
-    li.appendChild(leftDiv);
-    li.appendChild(valSpan);
+    rowDiv.appendChild(leftDiv);
+    rowDiv.appendChild(valSpan);
+    li.appendChild(rowDiv);
+
+    // Visual Progress Bar
+    const barBg = document.createElement('div');
+    barBg.className = 'rank-bar-bg';
+    barBg.style.width = '100%';
+    barBg.style.height = '6px';
+    barBg.style.background = 'rgba(255, 255, 255, 0.05)';
+    barBg.style.borderRadius = '3px';
+    barBg.style.overflow = 'hidden';
+    barBg.style.marginTop = '2px';
+
+    const bar = document.createElement('div');
+    bar.className = 'rank-bar';
+    
+    let barColor = 'var(--color-up)'; // Green for exports
+    if (currentRankMode === 'imports') {
+      barColor = '#8c52ff'; // Purple for imports
+    }
+    
+    const maxPct = 35; // Maximum benchmark percent for scaling
+    const barWidth = Math.min((pct / maxPct) * 100, 100);
+
+    bar.style.width = `${barWidth}%`;
+    bar.style.height = '100%';
+    bar.style.background = barColor;
+    bar.style.borderRadius = '3px';
+    bar.style.transition = 'width 0.4s ease';
+
+    barBg.appendChild(bar);
+    li.appendChild(barBg);
+
     rankingsList.appendChild(li);
   });
 }
