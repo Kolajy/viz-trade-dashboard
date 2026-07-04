@@ -79,19 +79,17 @@ function fetchUrl(url) {
 
 async function pullFlow(isExport) {
   const flow = isExport ? 'exports' : 'imports';
-  // Query 2025 full-year data using Dec-2025 time-series (YTD value represent the full year)
-  // Variable ALL_VAL_YR returns the YTD value
-  const url = `https://api.census.gov/data/timeseries/intltrade/${flow}/statenaics?get=STATE,NAICS,ALL_VAL_YR&time=2025-12&key=${API_KEY}`;
+  const valVar = isExport ? 'ALL_VAL_YR' : 'GEN_VAL_YR';
+  // Fetch all states in one API request (no STATE filter)
+  const url = `https://api.census.gov/data/timeseries/intltrade/${flow}/statenaics?get=STATE,NAICS,${valVar}&time=2025-12&key=${API_KEY}`;
   
   console.log(`Fetching ${flow} from Census API...`);
   const data = await fetchUrl(url);
   
-  // Census API returns array of arrays, first row is headers:
-  // [["STATE", "NAICS", "ALL_VAL_YR", "time", "state"]]
   const headers = data[0];
   const stateIdx = headers.indexOf('STATE');
   const naicsIdx = headers.indexOf('NAICS');
-  const valIdx = headers.indexOf('ALL_VAL_YR');
+  const valIdx = headers.indexOf(valVar);
   
   const results = {};
   
