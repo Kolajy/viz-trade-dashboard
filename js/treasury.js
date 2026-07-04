@@ -4,6 +4,9 @@
 
 import { showTooltip, hideTooltip, moveTooltip } from './utils.js';
 
+let historicalYields = null;
+let playIntervalId = null;
+
 export function initTreasuryDashboard(config, data) {
   const yields = data.treasury.yields;
   const maturities = config.treasuryDashboard.maturities;
@@ -13,14 +16,124 @@ export function initTreasuryDashboard(config, data) {
   const sourceEl = document.getElementById('treasury-source-text');
   if (sourceEl) sourceEl.textContent = `Source: ${source}`;
 
-  // Render rates table
-  renderYieldsTable(maturities, yields);
+  // Render initial current rates, spreads, and SVG
+  updateDashboardSnapshot(2026, maturities, data.treasury);
 
-  // Render spreads KPI card values
-  renderSpreads(data.treasury);
+  // Load historical yields database file
+  if (!historicalYields) {
+    fetch('./historicalYields.json')
+      .then(res => res.json())
+      .then(hist => {
+        historicalYields = hist;
+        setupTimeMachine(maturities, data.treasury);
+      })
+      .catch(err => {
+        console.error('Failed to load historical yields:', err);
+      });
+  } else {
+    setupTimeMachine(maturities, data.treasury);
+  }
+}
 
-  // Render SVG Yield Curve (passing whole treasury block for comparisons)
-  renderYieldCurveSVG(maturities, data.treasury);
+function setupTimeMachine(maturities, currentTreasuryData) {
+  const slider = document.getElementById('history-slider');
+  const yearDisplay = document.getElementById('time-machine-year-display');
+  const playBtn = document.getElementById('btn-play-history');
+
+  if (!slider || !yearDisplay || !playBtn) return;
+
+  // Reset controls
+  slider.value = 2026;
+  yearDisplay.textContent = 'Current (2026)';
+  if (playIntervalId) {
+    clearInterval(playIntervalId);
+    playIntervalId = null;
+  }
+  playBtn.textContent = 'Play';
+
+  // Handle slider input
+  slider.oninput = (e) => {
+    const year = parseInt(e.target.value);
+    
+    // Stop autoplay on manual drag
+    if (playIntervalId) {
+      clearInterval(playIntervalId);
+      playIntervalId = null;
+      playBtn.textContent = 'Play';
+    }
+
+    handleYearSelect(year, maturities, currentTreasuryData);
+  };
+
+  // Handle autoplay click
+  playBtn.onclick = () => {
+    if (playIntervalId) {
+      // Pause
+      clearInterval(playIntervalId);
+      playIntervalId = null;
+      playBtn.textContent = 'Play';
+    } else {
+      // Play
+      playBtn.textContent = 'Pause';
+      
+      // If at end, wrap back to start
+      if (parseInt(slider.value) >= 2026) {
+        slider.value = 2000;
+        handleYearSelect(2000, maturities, currentTreasuryData);
+      }
+
+      playIntervalId = setInterval(() => {
+        let val = parseInt(slider.value);
+        val++;
+        if (val > 2026) {
+          clearInterval(playIntervalId);
+          playIntervalId = null;
+          playBtn.textContent = 'Play';
+          return;
+        }
+        slider.value = val;
+        handleYearSelect(val, maturities, currentTreasuryData);
+      }, 900); // Step curve transitions every 900ms
+    }
+  };
+}
+
+function handleYearSelect(year, maturities, currentTreasuryData) {
+  const yearDisplay = document.getElementById('time-machine-year-display');
+  if (yearDisplay) {
+    yearDisplay.textContent = year === 2026 ? 'Current (2026)' : year.toString();
+  }
+
+  if (year === 2026) {
+    // Show current snapshot with all three curves (current, 1m, 1y comparison)
+    updateDashboardSnapshot(2026, maturities, currentTreasuryData, true);
+  } else {
+    // Compile dummy historical object for the selected year
+    const histRates = historicalYields[year];
+    if (!histRates) return;
+
+    const spread2y10y = (histRates['10Y'] || 0) - (histRates['2Y'] || 0);
+    const spread3m10y = (histRates['10Y'] || 0) - (histRates['3M'] || 0);
+
+    const histData = {
+      yields: histRates,
+      yields1MonthAgo: null, // comparisons not drawn for history
+      yields1YearAgo: null,
+      spread2y10y,
+      spread3m10y
+    };
+
+    updateDashboardSnapshot(year, maturities, histData, false);
+  }
+}
+
+function updateDashboardSnapshot(year, maturities, treasuryData, showComparisons = true) {
+  // Update sidebar tables and metrics
+  renderYieldsTable(maturities, treasuryData.yields);
+  renderSpreads(treasuryData);
+
+  // Draw SVG
+  renderYieldCurveSVG(maturities, treasuryData, showComparisons, year);
 }
 
 function renderYieldsTable(maturities, yields) {
@@ -75,7 +188,7 @@ function renderSpreads(treasuryData) {
   }
 }
 
-function renderYieldCurveSVG(maturities, treasuryData) {
+function renderYieldCurveSVG(maturities, treasuryData, showComparisons = true, year = 2026) {
   const svg = document.getElementById('yield-curve-svg');
   const tooltip = document.getElementById('map-tooltip-el');
   if (!svg) return;
@@ -106,15 +219,14 @@ function renderYieldCurveSVG(maturities, treasuryData) {
   const plotWidth = width - paddingLeft - paddingRight;
   const plotHeight = height - paddingTop - paddingBottom;
 
-  const maxYield = 6.0; // Y-Axis goes up to 6.0%
+  const maxYield = 6.0;
 
-  // 1. Draw Y-axis gridlines and labels (0.0% to 6.0%)
+  // Draw Y-axis gridlines and labels
   const yTicks = 6;
   for (let i = 0; i <= yTicks; i++) {
     const yVal = (maxYield / yTicks) * i;
     const y = paddingTop + plotHeight * (1 - yVal / maxYield);
 
-    // Gridline
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     line.setAttribute('x1', paddingLeft);
     line.setAttribute('y1', y);
@@ -122,7 +234,6 @@ function renderYieldCurveSVG(maturities, treasuryData) {
     line.setAttribute('y2', y);
     gridlinesGroup.appendChild(line);
 
-    // Label
     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     text.setAttribute('x', paddingLeft - 10);
     text.setAttribute('y', y + 4);
@@ -132,10 +243,10 @@ function renderYieldCurveSVG(maturities, treasuryData) {
   }
 
   const yieldsCurrent = treasuryData.yields;
-  const yields1m = treasuryData.yields1MonthAgo;
-  const yields1y = treasuryData.yields1YearAgo;
+  const yields1m = treasuryData.yields1MonthAgo || {};
+  const yields1y = treasuryData.yields1YearAgo || {};
 
-  // 2. Map coordinates and draw vertical guides
+  // Map coordinates and draw vertical guides
   const pointsCurrent = [];
   const points1m = [];
   const points1y = [];
@@ -144,17 +255,19 @@ function renderYieldCurveSVG(maturities, treasuryData) {
   maturities.forEach((m, idx) => {
     const x = paddingLeft + idx * xStep;
 
-    const yValCurrent = yieldsCurrent[m.key] || 0;
+    const yValCurrent = yieldsCurrent[m.key] !== undefined ? yieldsCurrent[m.key] : 0;
     const yCurrent = paddingTop + plotHeight * (1 - yValCurrent / maxYield);
     pointsCurrent.push({ x, y: yCurrent, val: yValCurrent, label: m.label, key: m.key });
 
-    const yVal1m = yields1m[m.key] || 0;
-    const y1m = paddingTop + plotHeight * (1 - yVal1m / maxYield);
-    points1m.push({ x, y: y1m, val: yVal1m });
+    if (showComparisons) {
+      const yVal1m = yields1m[m.key] !== undefined ? yields1m[m.key] : 0;
+      const y1m = paddingTop + plotHeight * (1 - yVal1m / maxYield);
+      points1m.push({ x, y: y1m, val: yVal1m });
 
-    const yVal1y = yields1y[m.key] || 0;
-    const y1y = paddingTop + plotHeight * (1 - yVal1y / maxYield);
-    points1y.push({ x, y: y1y, val: yVal1y });
+      const yVal1y = yields1y[m.key] !== undefined ? yields1y[m.key] : 0;
+      const y1y = paddingTop + plotHeight * (1 - yVal1y / maxYield);
+      points1y.push({ x, y: y1y, val: yVal1y });
+    }
 
     // Vertical line guide
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -173,7 +286,6 @@ function renderYieldCurveSVG(maturities, treasuryData) {
     xAxisGroup.appendChild(text);
   });
 
-  // Helper to build path string
   const getPathString = (pts) => {
     let d = '';
     pts.forEach((pt, idx) => {
@@ -182,39 +294,66 @@ function renderYieldCurveSVG(maturities, treasuryData) {
     return d;
   };
 
-  // 3. Render all three lines
+  // Render main curve
   pathCurrent.setAttribute('d', getPathString(pointsCurrent));
-  if (path1m) path1m.setAttribute('d', getPathString(points1m));
-  if (path1y) path1y.setAttribute('d', getPathString(points1y));
+  pathCurrent.style.stroke = showComparisons ? 'var(--color-up)' : 'var(--color-caution)';
 
-  // 4. Render hoverable circles for current curve with comparison tooltips
+  // Hide or show comparisons
+  if (showComparisons) {
+    if (path1m) {
+      path1m.style.display = 'block';
+      path1m.setAttribute('d', getPathString(points1m));
+    }
+    if (path1y) {
+      path1y.style.display = 'block';
+      path1y.setAttribute('d', getPathString(points1y));
+    }
+  } else {
+    if (path1m) path1m.style.display = 'none';
+    if (path1y) path1y.style.display = 'none';
+  }
+
+  // Render hoverable nodes
   pointsCurrent.forEach((pt, idx) => {
-    const pt1m = points1m[idx];
-    const pt1y = points1y[idx];
-
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', pt.x);
     circle.setAttribute('cy', pt.y);
     circle.setAttribute('r', '5');
     circle.setAttribute('class', 'curve-node');
+    if (!showComparisons) {
+      circle.style.fill = 'var(--color-caution)';
+    }
 
     circle.addEventListener('mouseenter', (e) => {
       if (tooltip) {
-        const html = `
-          <div class="tooltip-header">${pt.label} Treasury</div>
-          <div class="tooltip-row">
-            <span style="color: var(--color-up)">Current:</span>
-            <span class="tooltip-val-bold">${pt.val.toFixed(2)}%</span>
-          </div>
-          <div class="tooltip-row">
-            <span style="color: #8da4c4">1M Ago:</span>
-            <span class="tooltip-val-bold">${pt1m.val.toFixed(2)}%</span>
-          </div>
-          <div class="tooltip-row">
-            <span style="color: #667994">1Y Ago:</span>
-            <span class="tooltip-val-bold">${pt1y.val.toFixed(2)}%</span>
-          </div>
-        `;
+        let html = '';
+        if (showComparisons) {
+          const pt1m = points1m[idx];
+          const pt1y = points1y[idx];
+          html = `
+            <div class="tooltip-header">${pt.label} Treasury (Current)</div>
+            <div class="tooltip-row">
+              <span style="color: var(--color-up)">Current:</span>
+              <span class="tooltip-val-bold">${pt.val.toFixed(2)}%</span>
+            </div>
+            <div class="tooltip-row">
+              <span style="color: #8da4c4">1M Ago:</span>
+              <span class="tooltip-val-bold">${pt1m.val.toFixed(2)}%</span>
+            </div>
+            <div class="tooltip-row">
+              <span style="color: #667994">1Y Ago:</span>
+              <span class="tooltip-val-bold">${pt1y.val.toFixed(2)}%</span>
+            </div>
+          `;
+        } else {
+          html = `
+            <div class="tooltip-header">${pt.label} Treasury (${year})</div>
+            <div class="tooltip-row">
+              <span style="color: var(--color-caution)">Yield Rate:</span>
+              <span class="tooltip-val-bold">${pt.val.toFixed(2)}%</span>
+            </div>
+          `;
+        }
         showTooltip(tooltip, e, html);
       }
     });

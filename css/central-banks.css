@@ -1,0 +1,210 @@
+/* ============================================================
+   MacroScope — Central Banks Dashboard Styling
+   ============================================================ */
+
+.central-banks-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.central-banks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.cb-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cb-card:hover {
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cb-card:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.cb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-dim);
+  padding-bottom: var(--space-sm);
+}
+
+.cb-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cb-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cb-region {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+.cb-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stance--tightening {
+  background-color: rgba(255, 76, 82, 0.1);
+  color: var(--color-down);
+  border: 1px solid rgba(255, 76, 82, 0.2);
+}
+
+.stance--easing {
+  background-color: rgba(0, 192, 127, 0.1);
+  color: var(--color-up);
+  border: 1px solid rgba(0, 192, 127, 0.2);
+}
+
+.stance--neutral {
+  background-color: rgba(138, 153, 173, 0.1);
+  color: var(--color-neutral);
+  border: 1px solid rgba(138, 153, 173, 0.2);
+}
+
+.cb-rate-section {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-xs) 0;
+}
+
+.cb-rate-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cb-rate-value {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+
+.cb-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background-color: rgba(255, 255, 255, 0.01);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.cb-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.cb-stat-label {
+  color: var(--text-secondary);
+}
+
+.cb-stat-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.cb-bias-badge {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.bias-hawkish {
+  color: var(--color-down);
+  background-color: rgba(255, 76, 82, 0.08);
+  border: 1px solid rgba(255, 76, 82, 0.15);
+}
+
+.bias-dovish {
+  color: var(--color-up);
+  background-color: rgba(0, 192, 127, 0.08);
+  border: 1px solid rgba(0, 192, 127, 0.15);
+}
+
+.bias-neutral {
+  color: var(--color-neutral);
+  background-color: rgba(138, 153, 173, 0.08);
+  border: 1px solid rgba(138, 153, 173, 0.15);
+}
+
+.cb-meeting {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-dim);
+  padding-top: var(--space-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* FX Cross Matrix Styles */
+.fx-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.fx-card {
+  background-color: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fx-card:hover {
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.fx-card:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.fx-header {
+  display: flex;
+  align-items: center;
+}
+

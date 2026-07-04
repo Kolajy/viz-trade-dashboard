@@ -1,0 +1,151 @@
+/* ============================================================
+   MacroScope — GDP Nowcasting Dashboard Styles
+   ============================================================ */
+
+.nowcast-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.nowcast-summary-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.nowcast-headline-kpis {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: var(--space-md);
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-dim);
+}
+
+.nowcast-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.nowcast-kpi-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.nowcast-kpi-value {
+  font-size: 2.2rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.nowcast-waterfall-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.nowcast-segmented-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  background-color: rgba(255, 255, 255, 0.01);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-dim);
+}
+
+/* Bilateral baseline chart styles */
+.nowcast-chart-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nowcast-chart-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.nowcast-chart-bar-wrap {
+  position: relative;
+  flex-grow: 1;
+  height: 14px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.nowcast-chart-zero-line {
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  bottom: -4px;
+  width: 1px;
+  background-color: var(--text-muted);
+  z-index: 2;
+}
+
+.nowcast-chart-bar {
+  position: absolute;
+  height: 100%;
+  transition: width 0.3s ease, left 0.3s ease, right 0.3s ease;
+}
+
+.nowcast-chart-value {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  width: 60px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.nowcast-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: flex-start;
+  margin-top: var(--space-xs);
+}
+
+.nowcast-log-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.nowcast-log-table th, 
+.nowcast-log-table td {
+  padding: var(--space-md) var(--space-sm);
+}
+
+.nowcast-log-row {
+  border-bottom: 1px solid var(--border-dim);
+  transition: background-color 0.15s ease;
+}
+
+.nowcast-log-row:hover {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+@media (max-width: 1024px) {
+  .nowcast-layout {
+    grid-template-columns: 1fr;
+  }
+}

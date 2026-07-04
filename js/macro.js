@@ -55,6 +55,9 @@ export function initMacroDashboard(config, data) {
   if (balSheetEl && data.market.fed_balance_sheet) {
     balSheetEl.textContent = `$${data.market.fed_balance_sheet.toFixed(2)}T`;
   }
+
+  // Start FOMC countdown timer (target: July 29, 2026 14:00:00 EST)
+  startFomcCountdown('July 29, 2026 14:00:00 EST');
 }
 
 function updateKpiItem(id, value, meta, trend, isPercent, prefix = '') {
@@ -153,4 +156,36 @@ function updateInflationMetric(id, value, barWidth) {
   if (fillEl && barWidth) {
     fillEl.style.setProperty('--fill', barWidth);
   }
+}
+
+let fomcTimerId = null;
+function startFomcCountdown(targetDateStr) {
+  const el = document.getElementById('fed-countdown-val');
+  if (!el) return;
+
+  if (fomcTimerId) clearInterval(fomcTimerId);
+
+  const targetDate = new Date(targetDateStr).getTime();
+
+  function updateTimer() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      el.textContent = "Decision Pending";
+      el.style.color = "var(--color-neutral)";
+      clearInterval(fomcTimerId);
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    el.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateTimer();
+  fomcTimerId = setInterval(updateTimer, 1000);
 }

@@ -10,7 +10,7 @@ let currentGlobalMode = 'exports';
 let currentGlobalRankMode = 'total';
 let selectedCountryCode = null;
 
-export function initGlobalTradeDashboard(config) {
+export function initGlobalTradeDashboard(config, macroData) {
   const mapContainer = document.getElementById('global-svg-map');
   if (!mapContainer) return;
 
@@ -62,6 +62,7 @@ export function initGlobalTradeDashboard(config) {
     updateLegendGradient(config);
     renderWorldMap();
     updateGlobalRankingsList();
+    renderTradeContext(macroData);
   })
   .catch(err => {
     console.error('Error initializing global trade dashboard:', err);
@@ -283,9 +284,107 @@ function renderWorldMap() {
         hideTooltip(tooltip);
       };
       targetNode.onclick = null;
-      targetNode.style.cursor = 'default';
     }
   });
+
+  // Clear any existing flow lines or markers
+  const existingLines = mapContainer.querySelectorAll('.trade-flow-line, .trade-flow-marker');
+  existingLines.forEach(el => el.remove());
+
+  // Draw trade flow line if a country is selected and it is not 'us'
+  if (selectedCountryCode && selectedCountryCode !== 'us') {
+    const svgEl = mapContainer.querySelector('svg');
+    if (svgEl) {
+      drawTradeFlowLine(svgEl, selectedCountryCode);
+    }
+  }
+}
+
+function drawTradeFlowLine(svgEl, code) {
+  const usEl = svgEl.querySelector('#us');
+  const targetEl = svgEl.querySelector('#' + code);
+
+  if (!usEl || !targetEl) return;
+
+  // Get bounding box centers
+  const usBBox = usEl.getBBox();
+  const targetBBox = targetEl.getBBox();
+
+  const usX = usBBox.x + usBBox.width / 2;
+  const usY = usBBox.y + usBBox.height / 2;
+
+  const targetX = targetBBox.x + targetBBox.width / 2;
+  const targetY = targetBBox.y + targetBBox.height / 2;
+
+  // Calculate midpoints and lengths
+  const dx = targetX - usX;
+  const dy = targetY - usY;
+  const L = Math.sqrt(dx * dx + dy * dy);
+  
+  if (L === 0) return;
+
+  const mx = (usX + targetX) / 2;
+  const my = (usY + targetY) / 2;
+
+  // Calculate perpendicular offset for curve (bending upwards)
+  let ox = -dy * 0.20;
+  let oy = dx * 0.20;
+  
+  if (oy > 0) {
+    ox = -ox;
+    oy = -oy;
+  }
+  
+  if (Math.abs(dx) < 10) {
+    ox = L * 0.20; // Bends to the right if vertical
+    oy = 0;
+  }
+
+  const cx = mx + ox;
+  const cy = my + oy;
+
+  // Get trade details to determine color and flow direction
+  const pData = globalTradeData.partners[code];
+  let flowDirection = 'forward'; // 'forward' = US -> Target, 'backward' = Target -> US
+  let strokeColor = 'var(--color-up)';
+
+  if (pData) {
+    if (currentGlobalMode === 'exports') {
+      flowDirection = 'forward';
+      strokeColor = 'var(--color-up)';
+    } else if (currentGlobalMode === 'imports') {
+      flowDirection = 'backward';
+      strokeColor = '#8c52ff';
+    } else {
+      // Balance mode
+      if (pData.tradeBalance >= 0) {
+        flowDirection = 'forward';
+        strokeColor = 'var(--color-up)';
+      } else {
+        flowDirection = 'backward';
+        strokeColor = '#ff5e5e';
+      }
+    }
+  }
+
+  // Create path
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', `M ${usX} ${usY} Q ${cx} ${cy} ${targetX} ${targetY}`);
+  path.setAttribute('class', `trade-flow-line flow--${flowDirection}`);
+  path.style.stroke = strokeColor;
+  path.style.filter = `drop-shadow(0 0 3px ${strokeColor})`;
+
+  // Create marker/pulsing dot at target country center
+  const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  marker.setAttribute('cx', targetX);
+  marker.setAttribute('cy', targetY);
+  marker.setAttribute('r', '4');
+  marker.setAttribute('class', 'trade-flow-marker');
+  marker.style.fill = strokeColor;
+  marker.style.filter = `drop-shadow(0 0 4px ${strokeColor})`;
+
+  svgEl.appendChild(path);
+  svgEl.appendChild(marker);
 }
 
 function selectCountry(code) {
@@ -422,4 +521,70 @@ function populateCountryDropdown() {
       selectCountry(val);
     }
   });
+}
+
+function renderTradeContext(macroData) {
+  if (!macroData || !macroData.macro) return;
+  const macro = macroData.macro;
+
+  // Balance of Trade Card
+  const expVal = parseFloat(macro.us_exports);
+  const impVal = parseFloat(macro.us_imports);
+  const balVal = parseFloat(macro.us_trade_balance);
+  const period = macro.us_trade_balance_period || '—';
+
+  const elBalance = document.getElementById('context-trade-balance');
+  const elPeriod = document.getElementById('context-trade-period');
+  const elRatioExports = document.getElementById('context-ratio-exports');
+  const elRatioImports = document.getElementById('context-ratio-imports');
+  const elExportsLabel = document.getElementById('context-exports-label');
+  const elImportsLabel = document.getElementById('context-imports-label');
+
+  if (elBalance) {
+    elBalance.textContent = `$${balVal.toFixed(1)}B`;
+    elBalance.style.color = balVal < 0 ? 'var(--color-down)' : 'var(--color-up)';
+  }
+  if (elPeriod) elPeriod.textContent = period;
+
+  if (expVal && impVal) {
+    const total = expVal + impVal;
+    const expShare = (expVal / total) * 100;
+    const impShare = (impVal / total) * 100;
+
+    if (elRatioExports) elRatioExports.style.width = `${expShare}%`;
+    if (elRatioImports) elRatioImports.style.width = `${impShare}%`;
+
+    if (elExportsLabel) elExportsLabel.textContent = `Exports: $${expVal.toFixed(1)}B (${expShare.toFixed(0)}%)`;
+    if (elImportsLabel) elImportsLabel.textContent = `Imports: $${impVal.toFixed(1)}B (${impShare.toFixed(0)}%)`;
+  }
+
+  // Supply Chain indices
+  const bdi = parseFloat(macro.baltic_dry);
+  const gscpi = parseFloat(macro.gscpi);
+  const harpex = parseFloat(macro.harpex);
+
+  const bdiVal = document.getElementById('context-bdi-val');
+  const bdiTrend = document.getElementById('context-bdi-trend');
+  const gscpiVal = document.getElementById('context-gscpi-val');
+  const gscpiTrend = document.getElementById('context-gscpi-trend');
+  const harpexVal = document.getElementById('context-harpex-val');
+  const harpexTrend = document.getElementById('context-harpex-trend');
+
+  if (bdiVal) bdiVal.textContent = bdi.toLocaleString();
+  if (bdiTrend) {
+    bdiTrend.textContent = macro.baltic_dry_trend === 'up' ? '▲' : '▼';
+    bdiTrend.className = `trend-tag ${macro.baltic_dry_trend === 'up' ? 'trend--up' : 'trend--down'}`;
+  }
+
+  if (gscpiVal) gscpiVal.textContent = (gscpi >= 0 ? '+' : '') + gscpi.toFixed(2);
+  if (gscpiTrend) {
+    gscpiTrend.textContent = macro.gscpi_trend === 'up' ? '▲' : '▼';
+    gscpiTrend.className = `trend-tag ${macro.gscpi_trend === 'up' ? 'trend--up' : 'trend--down'}`;
+  }
+
+  if (harpexVal) harpexVal.textContent = harpex.toLocaleString();
+  if (harpexTrend) {
+    harpexTrend.textContent = macro.harpex_trend === 'up' ? '▲' : '▼';
+    harpexTrend.className = `trend-tag ${macro.harpex_trend === 'up' ? 'trend--up' : 'trend--down'}`;
+  }
 }

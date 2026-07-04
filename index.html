@@ -32,6 +32,8 @@
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-global-trade" id="tab-btn-global-trade">Global Trade Map</button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-treasury" id="tab-btn-treasury">Treasury Yield</button>
     <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-fed-health" id="tab-btn-fed-health">Fed Health</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-central-banks" id="tab-btn-central-banks">Central Banks</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-nowcast" id="tab-btn-nowcast">GDP Nowcast</button>
   </nav>
 
   <main class="dashboard" role="main">
@@ -139,6 +141,23 @@
           <p class="metric-note">Job gains led by leisure and healthcare; offset by decline in financial activities</p>
         </div>
 
+        <div class="metric-block" id="block-jolts" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Job Openings (JOLTS)
+              <span class="metric-period">May 2026 · BLS</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">8.25<span class="metric-unit">M</span></div>
+              <div class="metric-tag tag--caution">Moderating</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--caution" style="--w: 48%"></div>
+          </div>
+          <p class="metric-note">Job vacancies per unemployed worker at 1.25x; down from 2.0x peak in 2022</p>
+        </div>
+
         <!-- NEW: Wage Growth (Average Hourly Earnings) -->
         <div class="metric-block" id="block-wage-growth" tabindex="0">
           <div class="metric-row">
@@ -174,6 +193,40 @@
           <p class="metric-note">Consumer spending resilient despite weak sentiment readings</p>
         </div>
 
+        <div class="metric-block" id="block-savings-rate" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Personal Savings Rate
+              <span class="metric-period">May 2026 · BEA</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">3.7<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--down">Low</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--down" style="--w: 37%"></div>
+          </div>
+          <p class="metric-note">Percentage of disposable income saved; well below the 8.9% pre-pandemic average</p>
+        </div>
+
+        <div class="metric-block" id="block-delinquency-rate" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Credit Card Delinquency
+              <span class="metric-period">Q1 2026 · Fed · 30+ Days</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number down">3.15<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--down">Rising</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--down" style="--w: 63%"></div>
+          </div>
+          <p class="metric-note">Percentage of credit card balances in default; highest rate since 2011</p>
+        </div>
+
         <div class="metric-block" id="block-housing" tabindex="0">
           <div class="metric-row">
             <div class="metric-name">
@@ -189,6 +242,23 @@
             <div class="metric-bar bar--down" style="--w: 35%"></div>
           </div>
           <p class="metric-note">Sharpest monthly decline since 2023; elevated financing costs a drag</p>
+        </div>
+
+        <div class="metric-block" id="block-case-shiller" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Case-Shiller Home Prices
+              <span class="metric-period">Apr 2026 · S&amp;P CoreLogic</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">+5.8<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--neutral">Steady</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--neutral" style="--w: 58%"></div>
+          </div>
+          <p class="metric-note">20-city composite YoY; prices remain supported by historically low inventory</p>
         </div>
 
         <div class="metric-block" id="block-sentiment" tabindex="0">
@@ -337,6 +407,40 @@
           <p class="metric-note">23rd consecutive month of sector expansion; prices index at multi-year highs</p>
         </div>
 
+        <div class="metric-block" id="block-credit-spread" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              High Yield Credit Spread
+              <span class="metric-period">Jun 26, 2026 · ICE BofA</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">3.42<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--down">Thin</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--down" style="--w: 34%"></div>
+          </div>
+          <p class="metric-note">ICE BofA High Yield Option-Adjusted Spread; reflects strong corporate credit appetite</p>
+        </div>
+
+        <div class="metric-block" id="block-corporate-default" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              Corporate Default Rate
+              <span class="metric-period">May 2026 · Fitch · T12M</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number">3.10<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--caution">Elevated</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--caution" style="--w: 45%"></div>
+          </div>
+          <p class="metric-note">Trailing 12-month high-yield default rate; driven by telecom and retail defaults</p>
+        </div>
+
         <!-- Updated Fed Policy Block to include Balance Sheet -->
         <div class="policy-block" id="block-fed" tabindex="0">
           <div class="policy-header">
@@ -360,8 +464,29 @@
               <div class="policy-rate-label">QT Trend</div>
               <div class="policy-rate-value down-text" style="color: var(--color-down);">Contracting</div>
             </div>
+            <div class="policy-rate-row" style="border-top: 1px dashed var(--border-dim); padding-top: 6px; margin-top: 6px;">
+              <div class="policy-rate-label">Next Decision</div>
+              <div class="policy-rate-value" id="fed-countdown-val" style="font-family: var(--font-mono); color: var(--color-caution); font-weight: 600;">Loading...</div>
+            </div>
           </div>
           <p class="metric-note">Dot plot signals potential hikes in 2026 if inflation remains elevated</p>
+        </div>
+
+        <div class="metric-block" id="block-m2-growth" tabindex="0">
+          <div class="metric-row">
+            <div class="metric-name">
+              M2 Money Supply (YoY)
+              <span class="metric-period">May 2026 · Federal Reserve</span>
+            </div>
+            <div class="metric-right">
+              <div class="metric-number down">-0.8<span class="metric-unit">%</span></div>
+              <div class="metric-tag tag--down">Contracting</div>
+            </div>
+          </div>
+          <div class="metric-bar-wrap" aria-hidden="true">
+            <div class="metric-bar bar--down" style="--w: 35%"></div>
+          </div>
+          <p class="metric-note">Total cash &amp; near-money deposits; contracting YoY for the first time since the 1930s</p>
         </div>
 
       </div>
@@ -642,6 +767,58 @@
               <!-- Will be populated dynamically -->
             </ol>
           </div>
+
+          <!-- Trade & Logistics Context Panel -->
+          <div class="trade-logistics-box">
+            <h3 class="rankings-heading">U.S. Trade &amp; Logistics Context</h3>
+            
+            <!-- Balance of Trade Panel -->
+            <div class="trade-context-card">
+              <div class="context-card-title">U.S. Balance of Trade</div>
+              <div class="trade-balance-kpi">
+                <div class="trade-balance-val" id="context-trade-balance">-$0.0B</div>
+                <div class="trade-balance-period" id="context-trade-period">—</div>
+              </div>
+              <div class="trade-ratio-bar-wrap">
+                <div class="trade-ratio-bar">
+                  <div class="trade-ratio-segment ratio--exports" id="context-ratio-exports" style="width: 50%" title="Exports"></div>
+                  <div class="trade-ratio-segment ratio--imports" id="context-ratio-imports" style="width: 50%" title="Imports"></div>
+                </div>
+                <div class="trade-ratio-labels">
+                  <span id="context-exports-label">Exports: —</span>
+                  <span id="context-imports-label">Imports: —</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Supply Chain Logistics Panel -->
+            <div class="trade-context-card">
+              <div class="context-card-title">Global Supply Chain &amp; Freight</div>
+              <div class="supply-chain-grid">
+                <div class="supply-stat">
+                  <span class="supply-stat-lbl">Baltic Dry (BDI)</span>
+                  <div class="supply-stat-val">
+                    <span id="context-bdi-val">—</span>
+                    <span class="trend-tag" id="context-bdi-trend"></span>
+                  </div>
+                </div>
+                <div class="supply-stat">
+                  <span class="supply-stat-lbl">GSCPI (NY Fed)</span>
+                  <div class="supply-stat-val">
+                    <span id="context-gscpi-val">—</span>
+                    <span class="trend-tag" id="context-gscpi-trend"></span>
+                  </div>
+                </div>
+                <div class="supply-stat">
+                  <span class="supply-stat-lbl">Harpex Container</span>
+                  <div class="supply-stat-val">
+                    <span id="context-harpex-val">—</span>
+                    <span class="trend-tag" id="context-harpex-trend"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -674,6 +851,27 @@
               <!-- Yield Curve Nodes (Circles) -->
               <g id="yield-curve-nodes"></g>
             </svg>
+          </div>
+
+          <div class="time-machine-controls" style="margin-top: var(--space-md); padding: var(--space-md); background: rgba(0, 0, 0, 0.15); border: 1px solid var(--border-dim); border-radius: var(--radius-md); display: flex; flex-direction: column; gap: var(--space-sm);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                <button id="btn-play-history" class="time-machine-btn" style="background: none; border: 1px solid var(--border-dim); border-radius: var(--radius-sm); color: var(--text-primary); cursor: pointer; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Play</button>
+                <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.05em;">Yield Curve Time Machine</span>
+              </div>
+              <span id="time-machine-year-display" style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 600; color: var(--color-caution);">Current (2026)</span>
+            </div>
+            <input type="range" id="history-slider" min="2000" max="2026" value="2026" step="1" style="width: 100%; accent-color: var(--color-caution); cursor: pointer;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono);">
+              <span>2000 (Dot-com)</span>
+              <span>2007 (Pre-Crisis)</span>
+              <span>2008 (ZIRP)</span>
+              <span>2012 (QE)</span>
+              <span>2018 (Hikes)</span>
+              <span>2020 (Covid)</span>
+              <span>2024 (Peak Inv)</span>
+              <span>Current</span>
+            </div>
           </div>
         </div>
 
@@ -837,6 +1035,103 @@
               <div class="detail-info-block">
                 <div class="info-label">Reverse Repo (RRP) Utilization</div>
                 <p class="relationship-desc">The Federal Reserve's Overnight Reverse Repurchase Agreement Facility sits at <span id="fed-rrp-desc-val">$380 Billion</span>. RRP pools acts as a liquidity valve for money market funds, absorbing excess cash when banking system liquidity is overflowing.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Central Banks Tab Pane -->
+    <div id="tab-central-banks" class="tab-pane" role="tabpanel" aria-labelledby="tab-btn-central-banks" style="display: none;">
+      <div class="central-banks-layout">
+        <header class="chart-header">
+          <h2 class="chart-title">Global Central Banks Matrix</h2>
+          <span class="chart-source">Sources: Fed, ECB, BoJ, BoE, PBoC, SNB, RBA, BoC, and national statistics offices</span>
+        </header>
+        
+        <div class="central-banks-grid" id="central-banks-grid">
+          <!-- Dynamically populated in js/central-banks.js -->
+        </div>
+
+        <!-- FX Cross Matrix -->
+        <div class="fx-matrix-section" style="margin-top: var(--space-xl); border-top: 1px solid var(--border-dim); padding-top: var(--space-lg);">
+          <header class="chart-header">
+            <h2 class="chart-title">Foreign Exchange (FX) Matrix</h2>
+            <span class="chart-source">Sources: Interbank FX rates, closing benchmarks</span>
+          </header>
+          
+          <div class="fx-matrix-grid" id="fx-matrix-grid">
+            <!-- Dynamically populated in js/central-banks.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- GDP Nowcast Tab Pane -->
+    <div id="tab-nowcast" class="tab-pane" role="tabpanel" aria-labelledby="tab-btn-nowcast" style="display: none;">
+      <div class="nowcast-layout">
+        <!-- Left Side: Nowcast Headline KPI, Baseline comparison, and waterfall-style contribution segments -->
+        <div class="nowcast-summary-section">
+          <header class="chart-header">
+            <h2 class="chart-title">Real GDP Nowcast (Q2 2026)</h2>
+            <span class="chart-source">Source: MacroScope Nowcasting Model (fed-formula bottom-up tracker)</span>
+          </header>
+
+          <div class="nowcast-headline-kpis">
+            <div class="nowcast-kpi">
+              <span class="nowcast-kpi-label">Current Nowcast (Annualized)</span>
+              <div class="nowcast-kpi-value" id="nowcast-current-val">2.20%</div>
+            </div>
+            <div class="nowcast-kpi">
+              <span class="nowcast-kpi-label">Model Baseline</span>
+              <div class="nowcast-kpi-value neutral-text" id="nowcast-baseline-val">1.80%</div>
+            </div>
+            <div class="nowcast-kpi">
+              <span class="nowcast-kpi-label">Net Factor Revision</span>
+              <div class="nowcast-kpi-value surplus-text" id="nowcast-net-revision" style="color: var(--color-up);">+0.40%</div>
+            </div>
+          </div>
+
+          <!-- Segmented waterfall contribution bar -->
+          <div class="nowcast-waterfall-box">
+            <h3 class="sidebar-heading">GDP Component Contributions breakdown</h3>
+            <div class="nowcast-segmented-bar" id="nowcast-segmented-bar">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="nowcast-legend" id="nowcast-legend">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Recent Factor Releases Log -->
+        <div class="nowcast-log-section">
+          <div class="details-card">
+            <header class="details-header">
+              <h2 class="state-title">Model Factor Revisions Log</h2>
+              <span class="state-abbr">HIGH FREQUENCY DATA</span>
+            </header>
+            
+            <div class="details-body" style="padding-top: var(--space-md)">
+              <p class="nowcast-explainer-text" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: var(--space-md); line-height:1.4;">
+                Below are the high-frequency economic releases that triggered factor revisions. The baseline GDPNow model began at 1.80% and adjusts as real data is published by federal agencies.
+              </p>
+              
+              <div class="yields-table-wrap">
+                <table class="yields-table nowcast-log-table" style="font-size: 0.8rem; width: 100%;">
+                  <thead>
+                    <tr>
+                      <th>Release Date</th>
+                      <th>Economic Release</th>
+                      <th class="numeric">Impact</th>
+                      <th class="numeric">New GDP</th>
+                    </tr>
+                  </thead>
+                  <tbody id="nowcast-releases-tbody">
+                    <!-- Dynamically populated in js/nowcast.js -->
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
